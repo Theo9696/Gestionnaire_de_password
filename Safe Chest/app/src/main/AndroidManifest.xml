@@ -16,6 +16,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
+
+        <activity
+            android:name=".EcranConnexion"
+            android:label="@string/connect">
+
+        </activity>
+
+        <activity android:name=".MenuPrincipal"
+            android:label="Menu">
+
+        </activity>
+        </application>
 
 </manifest>

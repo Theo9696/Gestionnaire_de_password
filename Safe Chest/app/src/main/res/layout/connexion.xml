@@ -18,12 +18,14 @@
         />
 
     <TextView
+        android:layout_marginTop="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/identifiant"
         />
 
     <EditText
+        android:id="@+id/et_id"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
@@ -32,17 +34,31 @@
         />
 
     <TextView
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/password"
         />
 
     <EditText
+        android:id="@+id/et_mdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:lines="1"
-        android
+        android:hint="@string/PasswordHint"
+        android:maxEms="25"
+        android:password="true"
+        />
+
+    <Button
+        android:id="@+id/Connect_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/SendConnexionInfo"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
 
         />
 

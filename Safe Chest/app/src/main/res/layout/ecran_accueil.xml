@@ -15,6 +15,7 @@
         />
 
     <Button
+        android:id="@+id/Connect_passerelle"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="@string/connect"
@@ -23,6 +24,7 @@
         />
 
     <Button
+        android:id="@+id/Register_passerelle"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="@string/register"
