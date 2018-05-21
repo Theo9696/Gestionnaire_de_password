@@ -75,5 +75,4 @@ public class EcranInscription extends AppCompatActivity {
         return (str.matches("(.*)\\d(.*)") && str.matches("(.*)\\W(.*)"));
     }
 
-
 }
