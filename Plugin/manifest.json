@@ -1,0 +1,23 @@
+{
+
+  "description": "A safe password manager",
+  "manifest_version": 2,
+  "name": "Safe Chest",
+  "version": "0.1",
+  "icons": {
+    "48": "icons/safe-48.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "js": ["safe-chest.js"]
+    }
+  ],
+  "applications": {
+    "gecko": {
+       "id": "safe.chest@example.com"
+    }
+  }
+
+}

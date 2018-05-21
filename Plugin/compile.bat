@@ -1,0 +1,1 @@
+zip "safe.chest@example.com.xpi" "./*"
