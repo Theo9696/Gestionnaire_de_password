@@ -1,6 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/register"
+        android:textSize="35dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:fontFamily="casual"
+
+        />
+
+    <TextView
+        android:layout_marginTop="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/identifiant"
+        />
+
+    <EditText
+        android:id="@+id/et_id_inscription"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:lines="1"
+        android:hint="@string/HintId"
+        />
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/password"
+        />
+
+    <EditText
+        android:id="@+id/et_mdp_inscription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:lines="1"
+        android:hint="@string/PasswordHintchoice"
+        android:maxEms="25"
+        android:password="true"
+        />
+
+    <EditText
+        android:id="@+id/et_mdp_inscription_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:lines="1"
+        android:hint="@string/PasswordHintchoice2"
+        android:maxEms="25"
+        android:password="true"
+        android:layout_marginTop="10dp"
+        />
+
+    <Button
+        android:id="@+id/Connect_info_inscription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/SendConnexionInfo"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+
+        />
+
+
+</LinearLayout>

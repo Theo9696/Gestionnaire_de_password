@@ -7,6 +7,8 @@
     <string name="password">Mot de passe</string>
     <string name="HintId">Mathieu du turfu</string>
     <string name="PasswordHint">Entrez votre mot de passe maître</string>
+    <string name="PasswordHintchoice">Choisissez votre mot de passe maître</string>
+    <string name="PasswordHintchoice2">Entrez à nouveau votre mot de passe maître</string>
     <string name="SendConnexionInfo">Valider</string>
     <string name="title_menu">Votre interface</string>
     <string name="textView">Blc</string>

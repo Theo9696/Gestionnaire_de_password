@@ -27,6 +27,9 @@
             android:label="Menu">
 
         </activity>
+
+        <activity android:name=".EcranInscription"
+            android:label="Inscription"></activity>
         </application>
 
 </manifest>
