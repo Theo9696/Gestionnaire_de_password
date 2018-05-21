@@ -31,24 +31,32 @@ public class EcranInscription extends AppCompatActivity {
 
                 Intent menu_principal = new Intent(EcranInscription.this, MenuPrincipal.class);
 
-                EditText password1 = (EditText) findViewById (R.id.et_mdp_inscription);
-                EditText password2 = (EditText) findViewById (R.id.et_mdp_inscription_2);
+                EditText et_password1 = (EditText) findViewById (R.id.et_mdp_inscription);
+                EditText et_password2 = (EditText) findViewById (R.id.et_mdp_inscription_2);
 
-                EditText ide = (EditText) findViewById (R.id.et_id_inscription);
+                EditText et_ide = (EditText) findViewById (R.id.et_id_inscription);
 
-                if (!password1.getText().toString().equals(password2.getText().toString())) {
+                String password1 = et_password1.getText().toString();
+                String password2 = et_password2.getText().toString();
+                String ide = et_ide.getText().toString();
+
+                if (!password1.equals(password2)) {
                     Toast.makeText(getApplicationContext(),"Les mots de passe doivent être identiques", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    if (ide.getText().toString().equals("")){
+                    if (ide.equals("")){
                         Toast.makeText(getApplicationContext(),"L'identifiant ne doit pas être vide", Toast.LENGTH_SHORT).show();
-                    } else if (password1.getText().toString().length() < 12){
+                    } else if (password1.length() < 12){
                         Toast.makeText(getApplicationContext(),"Votre mot de passe maître doit contenir au minimum 12 caractères", Toast.LENGTH_SHORT).show();
+                    } else if (password1.toLowerCase().equals(password1) || password1.toUpperCase().equals(password1)){
+                        Toast.makeText(getApplicationContext(),"Votre mot de passe maître doit contenir des majuscules et des minuscules", Toast.LENGTH_SHORT).show();
+                    } else if (!isNumeric(password1)){
+                        Toast.makeText(getApplicationContext(),"Votre mot de passe maître doit contenir des nombres et un caractère spécial : @, ?, . ... ", Toast.LENGTH_SHORT).show();
                     }
                     else {
                         // On rajoute un extra
-                        menu_principal.putExtra(PASSWORD, password1.getText().toString());
-                        menu_principal.putExtra(ID, ide.getText().toString());
+                        menu_principal.putExtra(PASSWORD, password1);
+                        menu_principal.putExtra(ID, ide);
 
                         // Puis on lance l'intent !
                         startActivity(menu_principal);
@@ -58,5 +66,14 @@ public class EcranInscription extends AppCompatActivity {
 
             }
         });
+
+
     }
+
+    public static boolean isNumeric(String str)
+    {
+        return (str.matches("(.*)\\d(.*)") && str.matches("(.*)\\W(.*)"));
+    }
+
+
 }
