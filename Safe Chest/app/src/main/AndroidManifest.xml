@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.programmation.safechest">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".SafeChest"
         android:allowBackup="true"
@@ -24,8 +26,17 @@
 
         </activity>
 
-        <activity android:name=".EcranInscription"
-            android:label="Inscription"></activity>
+        <activity
+            android:name=".EcranInscription"
+            android:label="Inscription">
+
+        </activity>
+
+        <activity
+            android:name=".ListeComptesActivity"
+            android:label="ListeCompte">
+
+        </activity>
         </application>
 
 </manifest>

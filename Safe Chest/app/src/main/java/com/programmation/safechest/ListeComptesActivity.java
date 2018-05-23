@@ -10,9 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -23,8 +20,7 @@ import com.programmation.safechest.sampledata.Compte;
 import com.programmation.safechest.ui.sampledata.RecyclerCompte;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toolbar;
-
+import android.widget.Toast;
 
 
 public class ListeComptesActivity extends AppCompatActivity {
@@ -38,7 +34,9 @@ public class ListeComptesActivity extends AppCompatActivity {
 
 
 
-        setSupportActionBar((android.support.v7.widget.Toolbar) findViewById(R.id.toolbar));
+        setSupportActionBar(findViewById(R.id.toolbar));
+
+
 
         findViewById(R.id.fab).setOnClickListener(view -> {
             View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_task, null);
@@ -59,12 +57,15 @@ public class ListeComptesActivity extends AppCompatActivity {
                     .show();
         });
 
+
+
+
         RealmResults<Compte> comptes = setUpRealm();
 
         final RecyclerCompte compteRecycler = new RecyclerCompte(comptes);
-        RecyclerCompte recyclerView = findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(itemsRecyclerAdapter);
+        recyclerView.setAdapter(compteRecycler);
 
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
@@ -79,7 +80,7 @@ public class ListeComptesActivity extends AppCompatActivity {
                 String id = compteRecycler.getItem(position).getCompteId();
                 realm.executeTransactionAsync(realm -> {
                     Compte compte = realm.where(Compte.class)
-                            .equalTo("itemId", id)
+                            .equalTo("CompteId", id)
                             .findFirst();
                     if (compte != null) {
                         compte.deleteFromRealm();
@@ -91,6 +92,8 @@ public class ListeComptesActivity extends AppCompatActivity {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
+
+
 
     private RealmResults<Compte> setUpRealm() {
         Realm.setDefaultConfiguration(SyncConfiguration.automatic());
@@ -127,6 +130,7 @@ public class ListeComptesActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+
     }
 
 }

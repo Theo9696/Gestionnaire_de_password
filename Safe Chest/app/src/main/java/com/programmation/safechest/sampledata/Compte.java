@@ -17,10 +17,18 @@ public class Compte extends RealmObject{
     private String password;
 
     @Required
-    private Boolean URL;
+    private String URL;
 
     @Required
     private Date timestamp;
+
+    public Compte(){
+        super();
+        this.CompteId = "";
+        this.password = "";
+        this.URL = "";
+        this.timestamp = new Date();
+    }
 
     public Date getTimestamp() {
         return timestamp;
@@ -38,7 +46,7 @@ public class Compte extends RealmObject{
         return password;
     }
 
-    public Boolean getURL() {
+    public String getURL() {
         return URL;
     }
 
@@ -50,7 +58,7 @@ public class Compte extends RealmObject{
         CompteId = compteId;
     }
 
-    public void setURL(Boolean URL) {
+    public void setURL(String URL) {
         this.URL = URL;
     }
 }

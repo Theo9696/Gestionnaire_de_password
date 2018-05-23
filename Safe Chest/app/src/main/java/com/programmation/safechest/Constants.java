@@ -7,7 +7,6 @@ final class Constants {
     // ****
     // ****
     // **** ROS On-Premises Users
-    // **** Replace the INSTANCE_ADDRESS with the fully qualified version of
     // **** address of your ROS server, e.g.: INSTANCE_ADDRESS = "192.168.1.65:9080" and "http://" + INSTANCE_ADDRESS + "/auth"
     // **** (remember to use 'http' instead of 'https' if you didn't setup SSL on ROS yet)
 

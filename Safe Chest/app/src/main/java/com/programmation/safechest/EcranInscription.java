@@ -38,16 +38,19 @@ public class EcranInscription extends AppCompatActivity {
         et_password2 = (EditText) findViewById (R.id.et_mdp_inscription_2);
 
         et_ide = (EditText) findViewById (R.id.et_id_inscription);
-
+        Toast.makeText(getApplicationContext(), "1", Toast.LENGTH_SHORT);
 
 
         mPasserelleMenu.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 // Le premier paramètre est le nom de l'activité actuelle
                 // Le second est le nom de l'activité de destination
 
-                Intent menu_principal = new Intent(EcranInscription.this, ListeComptesActivity.class);
+                Toast.makeText(getApplicationContext(), "2", Toast.LENGTH_SHORT);
+
+                Intent menu_principal = new Intent(EcranInscription.this, EcranAccueil.class);
 
 
                 String password1 = et_password1.getText().toString();
@@ -93,6 +96,7 @@ public class EcranInscription extends AppCompatActivity {
             // Store values at the time of the login attempt.
             String nickname = et_ide.getText().toString();
             String password = et_password1.getText().toString();
+            Toast.makeText(getApplicationContext(), nickname+password, Toast.LENGTH_SHORT);
 
 
             SyncCredentials credentials = SyncCredentials.usernamePassword(nickname, password, true);
@@ -100,7 +104,8 @@ public class EcranInscription extends AppCompatActivity {
                 @Override
                 public void onSuccess(SyncUser user) {
 
-                    Intent menu_principal = new Intent(EcranInscription.this, ListeComptesActivity.class);
+                    Intent menu_principal = new Intent(EcranInscription.this, EcranAccueil.class);
+                    Toast.makeText(getApplicationContext(), "don't succeed to open listescompte", Toast.LENGTH_SHORT);
                     startActivity(menu_principal);
                 }
 

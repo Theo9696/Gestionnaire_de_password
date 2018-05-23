@@ -59,7 +59,7 @@ public class RecyclerCompte extends RealmRecyclerViewAdapter<Compte, RecyclerCom
 
         @Override
         public void onClick(View v) {
-            String compteId = mCompte.getCompteId();
+            //String compteId = mCompte.getCompteId();
 
             }
         }
