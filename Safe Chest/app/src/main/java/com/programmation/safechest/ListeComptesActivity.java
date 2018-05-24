@@ -59,13 +59,14 @@ public class ListeComptesActivity extends AppCompatActivity {
 
 
 
-
+        /*
         RealmResults<Compte> comptes = setUpRealm();
 
         final RecyclerCompte compteRecycler = new RecyclerCompte(comptes);
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(compteRecycler);
+
 
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
@@ -131,6 +132,9 @@ public class ListeComptesActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
 
+    */
+
     }
+
 
 }
