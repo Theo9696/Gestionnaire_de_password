@@ -40,17 +40,22 @@ public class ListeComptesActivity extends AppCompatActivity {
 
         findViewById(R.id.fab).setOnClickListener(view -> {
             View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_task, null);
-            EditText taskText = dialogView.findViewById(R.id.task);
+            EditText loginText = dialogView.findViewById(R.id.login);
+            EditText PasswordText = dialogView.findViewById(R.id.password);
+            EditText UrlText = dialogView.findViewById(R.id.url);
             new AlertDialog.Builder(ListeComptesActivity.this)
-                    .setTitle("Add a new task")
-                    .setMessage("What do you want to do next?")
+                    .setTitle("Add a new site")
+                    .setMessage("Set url, id and passord !")
                     .setView(dialogView)
                     .setPositiveButton("Add", (dialog, which) -> {
                         realm.executeTransactionAsync(realm -> {
                             Compte compte = new Compte();
-                            compte.setCompteId(taskText.getText().toString());
+                            compte.setLogin(loginText.getText().toString());
+                            compte.setURL(UrlText.getText().toString());
+                            compte.setPassword(loginText.getText().toString());
                             realm.insert(compte);
                         });
+                        Toast.makeText(this, loginText.getText().toString(), Toast.LENGTH_SHORT).show();
                     })
                     .setNegativeButton("Cancel", null)
                     .create()
@@ -59,9 +64,9 @@ public class ListeComptesActivity extends AppCompatActivity {
 
 
 
-        /*
-        RealmResults<Compte> comptes = setUpRealm();
 
+        RealmResults<Compte> comptes = setUpRealm();
+/*
         final RecyclerCompte compteRecycler = new RecyclerCompte(comptes);
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -92,7 +97,7 @@ public class ListeComptesActivity extends AppCompatActivity {
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
-    }
+    */}
 
 
 
@@ -132,7 +137,7 @@ public class ListeComptesActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
 
-    */
+
 
     }
 
