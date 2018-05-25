@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="wrap_content">
@@ -9,19 +10,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="Website url"/>
+        android:hint="@string/web_url"
+        tools:ignore="TextFields" />
     <EditText
         android:id="@+id/login"
         android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="login"/>
+        android:hint="@string/login"/>
     <EditText
         android:id="@+id/password"
         android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="Password"/>
+        android:hint="@string/mdp"
+        tools:ignore="TextFields" />
 </LinearLayout>

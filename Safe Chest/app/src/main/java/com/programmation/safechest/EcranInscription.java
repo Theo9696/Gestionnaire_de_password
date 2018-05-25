@@ -48,16 +48,11 @@ public class EcranInscription extends AppCompatActivity {
                 // Le premier paramètre est le nom de l'activité actuelle
                 // Le second est le nom de l'activité de destination
 
-                Toast.makeText(getApplicationContext(), "2", Toast.LENGTH_SHORT);
-
-                Intent menu_principal = new Intent(EcranInscription.this, EcranAccueil.class);
-
-
                 String password1 = et_password1.getText().toString();
                 String password2 = et_password2.getText().toString();
                 String ide = et_ide.getText().toString();
 
-                /*
+
                 if (!password1.equals(password2)) {
                     Toast.makeText(getApplicationContext(),"Les mots de passe doivent être identiques", Toast.LENGTH_SHORT).show();
                 }
@@ -71,17 +66,14 @@ public class EcranInscription extends AppCompatActivity {
                     } else if (!isNumeric(password1)){
                         Toast.makeText(getApplicationContext(),"Votre mot de passe maître doit contenir des nombres et un caractère spécial : @, ?, . ... ", Toast.LENGTH_SHORT).show();
                     }
-                    else { */
-                        // On rajoute un extra
-                        menu_principal.putExtra(PASSWORD, password1);
-                        menu_principal.putExtra(ID, ide);
+                    else {
 
                         // Puis on lance l'intent !
                         attemptLogin();
-                /*
+
                     }
                 }
-                */
+
 
 
             }
@@ -104,7 +96,7 @@ public class EcranInscription extends AppCompatActivity {
                 @Override
                 public void onSuccess(SyncUser user) {
 
-                    Intent menu_principal = new Intent(EcranInscription.this, EcranAccueil.class);
+                    Intent menu_principal = new Intent(EcranInscription.this, ListeComptesActivity.class);
                     Toast.makeText(getApplicationContext(), "don't succeed to open listescompte", Toast.LENGTH_SHORT);
                     startActivity(menu_principal);
                 }

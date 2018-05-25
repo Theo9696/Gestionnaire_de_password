@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.Map;
 
@@ -69,21 +70,29 @@ public class EcranConnexion extends AppCompatActivity {
         final String nickname = ide.getText().toString();
         String password = e_password.getText().toString();
 
-        final SyncCredentials credentials = SyncCredentials.usernamePassword(nickname, password, false);
-        SyncUser.logInAsync(credentials, AUTH_URL, new SyncUser.Callback<SyncUser>() {
-            @Override
-            public void onSuccess(SyncUser user) {
-                Intent menu_principal = new Intent(EcranConnexion.this, ListeComptesActivity.class);
-                startActivity(menu_principal);
-            }
+        if (nickname.equals("")) {
+            Toast.makeText(this,"Votre identifiant ne peut pas être vide", Toast.LENGTH_SHORT).show();
+        } else if (password.equals("")) {
+            Toast.makeText(this,"Votre mot de passe ne peut pas être vide", Toast.LENGTH_SHORT).show();
+        } else {
 
-            @Override
-            public void onError(ObjectServerError error) {
-                ide.setError("La connexion ne peut s'établir ou la combinaison mot de passe utilisateur est incorrecte");
-                ide.requestFocus();
-                Log.e("Login error", error.toString());
-            }
-        });
+
+            final SyncCredentials credentials = SyncCredentials.usernamePassword(nickname, password, false);
+            SyncUser.logInAsync(credentials, AUTH_URL, new SyncUser.Callback<SyncUser>() {
+                @Override
+                public void onSuccess(SyncUser user) {
+                    Intent menu_principal = new Intent(EcranConnexion.this, ListeComptesActivity.class);
+                    startActivity(menu_principal);
+                }
+
+                @Override
+                public void onError(ObjectServerError error) {
+                    ide.setError("La connexion ne peut s'établir ou la combinaison mot de passe utilisateur est incorrecte");
+                    ide.requestFocus();
+                    Log.e("Login error", error.toString());
+                }
+            });
+        }
     }
 
 }

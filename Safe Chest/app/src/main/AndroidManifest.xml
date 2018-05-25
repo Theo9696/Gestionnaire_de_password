@@ -25,14 +25,14 @@
 
         <activity
             android:name=".EcranConnexion"
-            android:label="@string/connect">
+            android:label="@string/app_name">
 
         </activity>
 
 
         <activity
             android:name=".EcranInscription"
-            android:label="Inscription">
+            android:label="@string/app_name">
 
         </activity>
 

@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-    <TextView
-        android:layout_width="match_parent"
+
+    <ImageView
+        android:layout_marginTop="15dp"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:text="@string/register"
-        android:textSize="35dp"
-        android:textColor="@color/colorPrimaryDark"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:textStyle="bold"
-        android:fontFamily="casual"
+        android:src="@drawable/account"
+        android:contentDescription="@string/contentDescr2" />
 
-        />
 
     <TextView
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/identifiant"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         />
 
     <EditText
@@ -31,13 +32,18 @@
         android:inputType="textMultiLine"
         android:lines="1"
         android:hint="@string/HintId"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         />
 
     <TextView
         android:layout_marginTop="20dp"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/password"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         />
 
     <EditText
@@ -47,9 +53,11 @@
         android:inputType="textMultiLine"
         android:lines="1"
         android:hint="@string/PasswordHintchoice"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:maxEms="25"
         android:password="true"
-        />
+        tools:ignore="Deprecated" />
 
     <EditText
         android:id="@+id/et_mdp_inscription_2"
@@ -58,10 +66,12 @@
         android:inputType="textMultiLine"
         android:lines="1"
         android:hint="@string/PasswordHintchoice2"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:maxEms="25"
         android:password="true"
         android:layout_marginTop="10dp"
-        />
+        tools:ignore="Deprecated" />
 
     <Button
         android:id="@+id/Connect_info_inscription"
@@ -70,7 +80,22 @@
         android:text="@string/SendConnexionInfo"
         android:gravity="center"
         android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/register2"
+        android:textSize="13sp"
+        android:gravity="center"
         android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:foregroundGravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
 
         />
 

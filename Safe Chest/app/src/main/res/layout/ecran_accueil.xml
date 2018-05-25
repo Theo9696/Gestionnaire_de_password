@@ -7,18 +7,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="30dp"
         android:text="@string/app_name"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="casual"
-        android:textSize="30dp"
+        android:textSize="30sp"
+
         />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:src="@drawable/logo"/>
+        android:src="@drawable/logo"
+        android:contentDescription="@string/contentDescr" />
 
     <Button
         android:id="@+id/Connect_passerelle"
@@ -26,14 +28,14 @@
         android:layout_height="wrap_content"
         android:text="@string/connect"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         />
 
     <Button
         android:id="@+id/Register_passerelle"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="@string/register"
+        android:text="@string/bouton_register"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
 

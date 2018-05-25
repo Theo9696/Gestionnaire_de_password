@@ -1,29 +1,24 @@
 <resources>
     <string name="app_name">Safe Chest</string>
     <string name="connect">Se connecter</string>
-    <string name="register">S\'inscrire</string>
+    <string name="bouton_register">Inscription</string>
+
+    <string name="register2">Attention, pour que ton interface soit sécurisée, ton mot de passe doit contenir au moins 12 caractères, un chiffre, une majuscule et un caractère alpha numérique</string>
     <string name="introduction">Cette application vous permet d\'avoir des mots de passe sécurisés pour tous vos comptes sans avoir à les retenir tous</string>
     <string name="identifiant">Identifiant</string>
     <string name="password">Mot de passe</string>
-    <string name="HintId">Mathieu du turfu</string>
-    <string name="PasswordHint">Entrez votre mot de passe maître</string>
-    <string name="PasswordHintchoice">Choisissez votre mot de passe maître</string>
-    <string name="PasswordHintchoice2">Entrez à nouveau votre mot de passe maître</string>
+    <string name="HintId">Votre identifiant</string>
+    <string name="PasswordHint">Entrez votre mot de passe</string>
+    <string name="PasswordHintchoice">Choisissez votre mot de passe</string>
+    <string name="PasswordHintchoice2">Entrez à nouveau votre mot de passe</string>
     <string name="SendConnexionInfo">Valider</string>
     <string name="title_menu">Votre interface</string>
     <string name="textView">Blc</string>
-    <string name="action_settings">Log out!</string>
+    <string name="action_settings">Déconnexion</string>
+    <string name="web_url">Website url</string>
+    <string name="login">identifiant pour ce compte</string>
+    <string name="mdp">mot de passe pour ce compte</string>
+    <string name="contentDescr">logo de l\'application</string>
+    <string name="contentDescr2">logo de la creation  d'un compte</string>
 
-    <string name="title_activity_items">Things ToDo!</string>
-
-    <!-- Strings related to login -->
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
 </resources>
