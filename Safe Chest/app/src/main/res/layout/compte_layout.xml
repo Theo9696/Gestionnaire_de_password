@@ -15,25 +15,16 @@
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:backgroundTint="#dde"
-        android:padding="20dp"
-        android:maxLines="1"
+        android:padding="8dp"
+        android:maxLines="3"
         android:textSize="16sp"
         android:ellipsize="end"
+        android:drawableLeft="@drawable/account_logo"
+        android:drawablePadding="15dp"
+
         />
 
-    <TextView
-        android:id="@+id/log"
-        android:background="@android:color/white"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:backgroundTint="#e5e5f5"
-        android:padding="20dp"
-        android:maxLines="1"
-        android:textSize="16sp"
-        android:ellipsize="end" />
-
+    <!--
     <Button
         android:id="@+id/button"
         android:background="@drawable/parametre"
@@ -44,6 +35,7 @@
         android:scaleY="1.25"
         android:layout_width="35sp"
         android:layout_height="35sp" />
+        -->
 
 
 </LinearLayout>

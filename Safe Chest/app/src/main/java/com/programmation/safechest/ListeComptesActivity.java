@@ -2,6 +2,7 @@ package com.programmation.safechest;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import io.realm.OrderedRealmCollection;
@@ -35,6 +37,8 @@ public class ListeComptesActivity extends AppCompatActivity {
         setContentView(R.layout.listecompte_activity);
 
         setSupportActionBar(findViewById(R.id.toolbar));
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         findViewById(R.id.fab).setOnClickListener(view -> {
             View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_task, null);
@@ -135,17 +139,31 @@ public class ListeComptesActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_logout) {
-            SyncUser syncUser = SyncUser.current();
-            if (syncUser != null) {
-                syncUser.logOut();
-                Intent intent = new Intent(this, EcranAccueil.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }
-            return true;
+        switch(item.getItemId()) {
+            case R.id.action_logout:
+
+                SyncUser syncUser = SyncUser.current();
+                if (syncUser != null) {
+                    syncUser.logOut();
+                    Intent intent = new Intent(this, EcranAccueil.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+                return true;
+            case R.id.home:
+                // La ligne de code ci-dessous permet d'activité le bouton retour
+                Intent intent = NavUtils.getParentActivityIntent(this);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                NavUtils.navigateUpTo(this, intent);
+                return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
 }

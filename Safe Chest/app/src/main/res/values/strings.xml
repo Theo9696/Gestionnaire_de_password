@@ -7,7 +7,7 @@
     <string name="introduction">Cette application vous permet d\'avoir des mots de passe sécurisés pour tous vos comptes sans avoir à les retenir tous</string>
     <string name="identifiant">Identifiant</string>
     <string name="password">Mot de passe</string>
-    <string name="HintId">Votre identifiant</string>
+    <string name="HintId">Entrez votre identifiant</string>
     <string name="PasswordHint">Entrez votre mot de passe</string>
     <string name="PasswordHintchoice">Choisissez votre mot de passe</string>
     <string name="PasswordHintchoice2">Entrez à nouveau votre mot de passe</string>
@@ -20,5 +20,6 @@
     <string name="mdp">mot de passe pour ce compte</string>
     <string name="contentDescr">logo de l\'application</string>
     <string name="contentDescr2">logo de la creation  d'un compte</string>
+    <string name="contentDescr3">logo de la connexion à un compte</string>
 
 </resources>

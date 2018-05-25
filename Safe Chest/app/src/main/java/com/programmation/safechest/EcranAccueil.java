@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toolbar;
 
 public class EcranAccueil extends AppCompatActivity {
 
@@ -16,6 +17,12 @@ public class EcranAccueil extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ecran_accueil);
+
+
+
+        //Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+        //toolbar.setLogo(R.drawable.logo);
 
         Button mPasserelle = (Button) findViewById(R.id.Connect_passerelle);
         Button mPasserelle_insc = (Button) findViewById(R.id.Register_passerelle);

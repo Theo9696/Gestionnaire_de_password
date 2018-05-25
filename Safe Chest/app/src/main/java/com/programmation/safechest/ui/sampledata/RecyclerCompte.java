@@ -40,23 +40,20 @@ public class RecyclerCompte extends RealmRecyclerViewAdapter<Compte, RecyclerCom
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView urlView;
-        TextView logView;
+        TextView contentView;
         Compte mCompte;
         Button mButton;
 
         MyViewHolder(View compteView) {
             super(compteView);
-            urlView = compteView.findViewById(R.id.url);
-            logView = compteView.findViewById(R.id.log);
-            mButton = compteView.findViewById(R.id.button);
-            mButton.setOnClickListener(this);
+            contentView = compteView.findViewById(R.id.url);
+            //mButton = compteView.findViewById(R.id.button);
+            contentView.setOnClickListener(this);
         }
 
         void setCompte(Compte compte, int position) {
             this.mCompte = compte;
-            this.urlView.setText(compte.getURL());
-            this.logView.setText(compte.getCompteLogin() + " / " + compte.getPassword());
+            this.contentView.setText("URL : " + compte.getURL()+"\nIdentifiant : " + compte.getCompteLogin() + " \nMot de passe : " + compte.getPassword());
         }
 
         @Override

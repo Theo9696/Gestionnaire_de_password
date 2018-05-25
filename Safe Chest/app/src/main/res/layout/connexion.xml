@@ -5,23 +5,19 @@
     android:layout_height="match_parent">
 
 
-    <TextView
-        android:layout_width="match_parent"
+    <ImageView
+        android:layout_marginTop="25dp"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:text=" "
-        android:textSize="35sp"
-        android:textColor="@color/colorPrimaryDark"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:textStyle="bold"
-        android:fontFamily="casual"
-
-        />
+        android:src="@drawable/account"
+        android:contentDescription="@string/contentDescr3" />
 
     <TextView
         android:layout_marginTop="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="@string/identifiant"
         />
 
@@ -32,6 +28,9 @@
         android:inputType="textMultiLine"
         android:lines="1"
         android:hint="@string/HintId"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="10dp"
         />
 
     <TextView
@@ -39,6 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/password"
+        android:layout_gravity="center"
         />
 
     <EditText
@@ -50,6 +50,9 @@
         android:hint="@string/PasswordHint"
         android:maxEms="25"
         android:password="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="15dp"
         tools:ignore="Deprecated" />
 
     <Button
