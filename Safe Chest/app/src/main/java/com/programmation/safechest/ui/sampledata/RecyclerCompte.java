@@ -34,24 +34,27 @@ public class RecyclerCompte extends RealmRecyclerViewAdapter<Compte, RecyclerCom
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         final Compte compte = getItem(position);
-        holder.setCompte(compte);
+        holder.setCompte(compte, position);
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView textView;
+        TextView urlView;
+        TextView logView;
         Compte mCompte;
         Button mButton;
 
         MyViewHolder(View compteView) {
             super(compteView);
-            textView = compteView.findViewById(R.id.body);
+            urlView = compteView.findViewById(R.id.url);
+            logView = compteView.findViewById(R.id.log);
             mButton = compteView.findViewById(R.id.button);
             mButton.setOnClickListener(this);
         }
 
-        void setCompte(Compte compte) {
+        void setCompte(Compte compte, int position) {
             this.mCompte = compte;
-            this.textView.setText(compte.getCompteId());
+            this.urlView.setText(compte.getURL());
+            this.logView.setText(compte.getCompteLogin() + " / " + compte.getPassword());
         }
 
         @Override
