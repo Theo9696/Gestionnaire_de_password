@@ -45,7 +45,6 @@ public class ListeComptesActivity extends AppCompatActivity {
                     .setMessage("Set url, id and passord !")
                     .setView(dialogView)
                     .setPositiveButton("Add", (dialog, which) -> {
-                        try {
                         realm.executeTransactionAsync(realm -> {
                             try {
                                 Compte compte = new Compte();
@@ -55,14 +54,9 @@ public class ListeComptesActivity extends AppCompatActivity {
                                 compte.setOwner(SyncUser.current().getIdentity());
                                 realm.insert(compte);
                             } catch (Exception e){
-                                Toast.makeText(getApplicationContext(),e.getMessage(), Toast.LENGTH_SHORT);
+                                setError("Un compte avec ce login existe déjà !");
                             }
                         });
-                        } catch (Exception e){
-                            Toast.makeText(getApplicationContext(),"Un compte avec ce login existe déjà !", Toast.LENGTH_SHORT);
-                        }
-
-                        Toast.makeText(this, loginText.getText().toString(), Toast.LENGTH_SHORT).show();
                     })
                     .setNegativeButton("Cancel", null)
                     .create()
@@ -99,6 +93,10 @@ public class ListeComptesActivity extends AppCompatActivity {
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
+    }
+
+    private void setError(String errorText){
+        Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
     }
 
     private RealmResults<Compte> setUpRealm() {
