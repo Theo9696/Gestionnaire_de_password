@@ -4,7 +4,9 @@ import android.widget.Toast;
 
 import java.util.Date;
 
+import io.realm.Realm;
 import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
@@ -28,6 +30,9 @@ public class Compte extends RealmObject{
 
     @Required
     private Date timestamp;
+
+    @Ignore
+    private Realm realm;
 
     public Compte(){
         super();
@@ -91,4 +96,8 @@ public class Compte extends RealmObject{
         this.login = login;
         setCompteId();
     }
+
+    public void setRealm(Realm realm){ this.realm = realm; }
+
+    public Realm getRealm(Realm realm){ return this.realm; }
 }

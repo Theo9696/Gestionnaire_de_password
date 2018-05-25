@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import io.realm.OrderedRealmCollection;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.Sort;
@@ -41,29 +42,29 @@ public class ListeComptesActivity extends AppCompatActivity {
             EditText PasswordText = dialogView.findViewById(R.id.password);
             EditText UrlText = dialogView.findViewById(R.id.url);
             new AlertDialog.Builder(ListeComptesActivity.this)
-                    .setTitle("Add a new site")
-                    .setMessage("Set url, id and passord !")
-                    .setView(dialogView)
-                    .setPositiveButton("Add", (dialog, which) -> {
-                        realm.executeTransactionAsync(realm -> {
-                            try {
-                                Compte compte = new Compte();
-                                compte.setLogin(loginText.getText().toString());
-                                compte.setURL(UrlText.getText().toString());
-                                compte.setPassword(PasswordText.getText().toString());
-                                compte.setOwner(SyncUser.current().getIdentity());
-                                realm.insert(compte);
-                            } catch (Exception e){
-                                setError("Un compte avec ce login existe déjà !");
-                            }
-                        });
-                    })
-                    .setNegativeButton("Cancel", null)
-                    .create()
-                    .show();
+                .setTitle("Add a new site")
+                .setMessage("Set url, id and passord !")
+                .setView(dialogView)
+                .setPositiveButton("Add", (dialog, which) -> {
+                    realm.executeTransactionAsync(realm -> {
+                        try {
+                            Compte compte = new Compte();
+                            compte.setLogin(loginText.getText().toString());
+                            compte.setURL(UrlText.getText().toString());
+                            compte.setPassword(PasswordText.getText().toString());
+                            compte.setOwner(SyncUser.current().getIdentity());
+                            realm.insert(compte);
+                        } catch (Exception e){
+                            setError("Un compte avec ce login existe déjà !");
+                        }
+                    });
+                })
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show();
         });
 
-        RealmResults<Compte> comptes = setUpRealm();
+        OrderedRealmCollection<Compte> comptes = setUpRealm();
 
         final RecyclerCompte compteRecycler = new RecyclerCompte(comptes);
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
@@ -99,7 +100,7 @@ public class ListeComptesActivity extends AppCompatActivity {
         Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
     }
 
-    private RealmResults<Compte> setUpRealm() {
+    private OrderedRealmCollection<Compte> setUpRealm() {
         try{
             Realm.setDefaultConfiguration(SyncConfiguration.automatic());
         }
@@ -108,11 +109,16 @@ public class ListeComptesActivity extends AppCompatActivity {
         }
         realm = Realm.getDefaultInstance();
 
-        return realm
+        OrderedRealmCollection<Compte> comptes = realm
                 .where(Compte.class)
                 .equalTo("owner", SyncUser.current().getIdentity())
                 .sort("timestamp", Sort.DESCENDING)
                 .findAllAsync();
+
+        for (Compte compte: comptes)
+            compte.setRealm(realm);
+
+        return comptes;
     }
 
     @Override

@@ -12,9 +12,11 @@ import com.programmation.safechest.R;
 import com.programmation.safechest.sampledata.Compte;
 
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 
 import io.realm.OrderedRealmCollection;
+import io.realm.Realm;
 import io.realm.RealmRecyclerViewAdapter;
 
 
@@ -58,31 +60,48 @@ public class RecyclerCompte extends RealmRecyclerViewAdapter<Compte, RecyclerCom
         }
 
         @Override
-        public void onClick(View dialogView) {
-            /*String compteId = mCompte.getCompteId();
+        public void onClick(View view) {
+            View dialogView = LayoutInflater.from(view.getContext()).inflate(R.layout.dialog_task, null);
+
             EditText loginText = dialogView.findViewById(R.id.login);
             EditText PasswordText = dialogView.findViewById(R.id.password);
             EditText UrlText = dialogView.findViewById(R.id.url);
-            new AlertDialog.Builder(MyViewHolder.this)
-                    .setTitle("Add a new task")
-                    .setMessage("What do you want to do next?")
+
+            loginText.setText(mCompte.getCompteLogin());
+            PasswordText.setText(mCompte.getPassword());
+            UrlText.setText(mCompte.getURL());
+
+            new AlertDialog.Builder(view.getContext())
+                    .setTitle("Votre Mémo")
+                    .setMessage("Changez vos entrées")
                     .setView(dialogView)
-                    .setPositiveButton("Add", (dialog, which) -> {
-                        realm.executeTransactionAsync(realm -> {
-                            Item item = new Item();
-                            item.setBody(taskText.getText().toString());
-                            realm.insert(item);
+                    .setPositiveButton("Écraser", (dialog, which) -> {
+                        Realm realm = mCompte.getRealm();
+
+                        realm.executeTransactionAsync(new Realm.Transaction() {
+                            @Override
+                            public void execute(Realm bgRealm) {
+                                try {
+                                    Compte compte = bgRealm.where(Compte.class).equalTo("compteId", mCompte.getCompteId()).findFirst();
+                                    compte.setPassword(PasswordText.getText().toString());
+                                    compte.setURL(UrlText.getText().toString());
+                                    compte.setLogin(loginText.getText().toString());
+                                }
+                                catch (Exception e){
+                                    Toast.makeText(view.getContext(), "error modifying...", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            }, new Realm.Transaction.OnSuccess() {
+                            @Override
+                            public void onSuccess() {
+                                Toast.makeText(view.getContext(), "Enregistré", Toast.LENGTH_SHORT).show();
+                            }
                         });
                     })
-                    .setNegativeButton("Cancel", null)
+                    .setNegativeButton("Annuler", null)
                     .create()
-                    .show();*/
-
-
-        }
-
-
-
+                    .show();
         }
     }
+}
 
