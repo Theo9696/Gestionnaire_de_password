@@ -37,7 +37,7 @@
 
         <activity
             android:name=".ListeComptesActivity"
-            android:label="ListeCompte"
+            android:label="Vos comptes"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
