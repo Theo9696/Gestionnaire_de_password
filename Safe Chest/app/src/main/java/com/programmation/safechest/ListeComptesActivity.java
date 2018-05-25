@@ -32,11 +32,7 @@ public class ListeComptesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.listecompte_activity);
 
-
-
         setSupportActionBar(findViewById(R.id.toolbar));
-
-
 
         findViewById(R.id.fab).setOnClickListener(view -> {
             View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_task, null);
@@ -52,7 +48,7 @@ public class ListeComptesActivity extends AppCompatActivity {
                             Compte compte = new Compte();
                             compte.setLogin(loginText.getText().toString());
                             compte.setURL(UrlText.getText().toString());
-                            compte.setPassword(loginText.getText().toString());
+                            compte.setPassword(PasswordText.getText().toString());
                             realm.insert(compte);
                         });
                         Toast.makeText(this, loginText.getText().toString(), Toast.LENGTH_SHORT).show();
@@ -62,16 +58,12 @@ public class ListeComptesActivity extends AppCompatActivity {
                     .show();
         });
 
-
-
-
         RealmResults<Compte> comptes = setUpRealm();
-/*
+
         final RecyclerCompte compteRecycler = new RecyclerCompte(comptes);
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(compteRecycler);
-
 
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
@@ -94,15 +86,17 @@ public class ListeComptesActivity extends AppCompatActivity {
                 });
             }
         };
-
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
-    */}
-
-
+    }
 
     private RealmResults<Compte> setUpRealm() {
-        Realm.setDefaultConfiguration(SyncConfiguration.automatic());
+        try{
+            Realm.setDefaultConfiguration(SyncConfiguration.automatic());
+        }
+        catch(Exception e){
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
         realm = Realm.getDefaultInstance();
 
         return realm
@@ -136,10 +130,6 @@ public class ListeComptesActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-
-
-
     }
-
 
 }
