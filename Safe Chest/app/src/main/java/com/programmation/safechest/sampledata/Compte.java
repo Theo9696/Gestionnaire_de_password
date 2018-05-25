@@ -1,5 +1,7 @@
 package com.programmation.safechest.sampledata;
 
+import android.widget.Toast;
+
 import java.util.Date;
 
 import io.realm.RealmObject;
@@ -22,6 +24,9 @@ public class Compte extends RealmObject{
     private String login;
 
     @Required
+    private String owner;
+
+    @Required
     private Date timestamp;
 
     public Compte(){
@@ -31,6 +36,15 @@ public class Compte extends RealmObject{
         this.password = "";
         this.URL = "";
         this.timestamp = new Date();
+        this.owner="";
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
     public Date getTimestamp() {
@@ -60,7 +74,12 @@ public class Compte extends RealmObject{
     public void setPassword(String password) { this.password = password; }
 
     protected void setCompteId() {
-        CompteId = URL + login;
+        try {
+            CompteId = URL + login;
+        }
+        catch (Exception e) {
+
+        }
     }
 
     public void setURL(String URL) {

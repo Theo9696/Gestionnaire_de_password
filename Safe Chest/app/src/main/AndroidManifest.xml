@@ -29,6 +29,7 @@
 
         </activity>
 
+
         <activity
             android:name=".EcranInscription"
             android:label="Inscription">

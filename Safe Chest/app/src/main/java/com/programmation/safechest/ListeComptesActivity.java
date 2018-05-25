@@ -18,6 +18,7 @@ import io.realm.SyncConfiguration;
 import io.realm.SyncUser;
 import com.programmation.safechest.sampledata.Compte;
 import com.programmation.safechest.ui.sampledata.RecyclerCompte;
+
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
@@ -44,13 +45,23 @@ public class ListeComptesActivity extends AppCompatActivity {
                     .setMessage("Set url, id and passord !")
                     .setView(dialogView)
                     .setPositiveButton("Add", (dialog, which) -> {
+                        try {
                         realm.executeTransactionAsync(realm -> {
-                            Compte compte = new Compte();
-                            compte.setLogin(loginText.getText().toString());
-                            compte.setURL(UrlText.getText().toString());
-                            compte.setPassword(PasswordText.getText().toString());
-                            realm.insert(compte);
+                            try {
+                                Compte compte = new Compte();
+                                compte.setLogin(loginText.getText().toString());
+                                compte.setURL(UrlText.getText().toString());
+                                compte.setPassword(PasswordText.getText().toString());
+                                compte.setOwner(SyncUser.current().getIdentity());
+                                realm.insert(compte);
+                            } catch (Exception e){
+                                Toast.makeText(getApplicationContext(),e.getMessage(), Toast.LENGTH_SHORT);
+                            }
                         });
+                        } catch (Exception e){
+                            Toast.makeText(getApplicationContext(),"Un compte avec ce login existe déjà !", Toast.LENGTH_SHORT);
+                        }
+
                         Toast.makeText(this, loginText.getText().toString(), Toast.LENGTH_SHORT).show();
                     })
                     .setNegativeButton("Cancel", null)
@@ -101,6 +112,7 @@ public class ListeComptesActivity extends AppCompatActivity {
 
         return realm
                 .where(Compte.class)
+                .equalTo("owner", SyncUser.current().getIdentity())
                 .sort("timestamp", Sort.DESCENDING)
                 .findAllAsync();
     }

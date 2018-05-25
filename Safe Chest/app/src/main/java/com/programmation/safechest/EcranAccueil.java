@@ -12,7 +12,6 @@ public class EcranAccueil extends AppCompatActivity {
 
     private Button mPasserelle = null;
     private Button mPasserelle_insc = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
