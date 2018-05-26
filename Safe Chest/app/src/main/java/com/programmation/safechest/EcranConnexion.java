@@ -86,13 +86,12 @@ public class EcranConnexion extends AppCompatActivity {
         } else if (password.equals("")) {
             Toast.makeText(this,"Votre mot de passe ne peut pas être vide", Toast.LENGTH_SHORT).show();
         } else {
-
-
             final SyncCredentials credentials = SyncCredentials.usernamePassword(nickname, password, false);
             SyncUser.logInAsync(credentials, AUTH_URL, new SyncUser.Callback<SyncUser>() {
                 @Override
                 public void onSuccess(SyncUser user) {
                     Intent menu_principal = new Intent(EcranConnexion.this, ListeComptesActivity.class);
+                    menu_principal.putExtra(PASSWORD, password);
                     startActivity(menu_principal);
                 }
 

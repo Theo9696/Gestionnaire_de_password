@@ -30,11 +30,16 @@ import android.widget.Toast;
 public class ListeComptesActivity extends AppCompatActivity {
 
     private Realm realm;
+    private String password;
+
+    public final static String PASSWORD = "com.programmation.safechest.Password";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.listecompte_activity);
+
+        password = getIntent().getStringExtra(PASSWORD);
 
         setSupportActionBar(findViewById(R.id.toolbar));
 
@@ -113,14 +118,13 @@ public class ListeComptesActivity extends AppCompatActivity {
         }
         realm = Realm.getDefaultInstance();
 
-        OrderedRealmCollection<Compte> comptes = realm
+        OrderedRealmCollection<Compte> comptes =  realm
                 .where(Compte.class)
                 .equalTo("owner", SyncUser.current().getIdentity())
                 .sort("timestamp", Sort.DESCENDING)
                 .findAllAsync();
-
-        for (Compte compte: comptes)
-            compte.setRealm(realm);
+        for(Compte compte: comptes)
+            compte.setKey(password);
 
         return comptes;
     }

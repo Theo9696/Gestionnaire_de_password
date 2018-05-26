@@ -1,6 +1,7 @@
 package com.programmation.safechest.ui.sampledata;
 
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,36 +69,16 @@ public class RecyclerCompte extends RealmRecyclerViewAdapter<Compte, RecyclerCom
             PasswordText.setText(mCompte.getPassword());
             UrlText.setText(mCompte.getURL());
 
-            new AlertDialog.Builder(view.getContext())
-                    .setTitle("Votre Mémo")
-                    .setMessage("Changez vos entrées")
-                    .setView(dialogView)
-                    .setPositiveButton("Écraser", (dialog, which) -> {
-                        Realm realm = mCompte.getRealm();
+            Realm theRealm = this.mCompte.getRealm();
 
-                        realm.executeTransactionAsync(new Realm.Transaction() {
-                            @Override
-                            public void execute(Realm bgRealm) {
-                                try {
-                                    Compte compte = bgRealm.where(Compte.class).equalTo("compteId", mCompte.getCompteId()).findFirst();
-                                    compte.setPassword(PasswordText.getText().toString());
-                                    compte.setURL(UrlText.getText().toString());
-                                    compte.setLogin(loginText.getText().toString());
-                                }
-                                catch (Exception e){
-                                    Toast.makeText(view.getContext(), "error modifying...", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                            }, new Realm.Transaction.OnSuccess() {
-                            @Override
-                            public void onSuccess() {
-                                Toast.makeText(view.getContext(), "Enregistré", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    })
-                    .setNegativeButton("Annuler", null)
-                    .create()
-                    .show();
+            new AlertDialog.Builder(view.getContext())
+                .setTitle("Votre Mémo")
+                .setMessage("Changez vos entrées")
+                .setView(dialogView)
+                .setPositiveButton("Ok", null)
+                .create()
+                .show();
+            theRealm.close();
         }
     }
 }
