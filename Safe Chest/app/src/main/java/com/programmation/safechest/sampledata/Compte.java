@@ -1,29 +1,22 @@
 package com.programmation.safechest.sampledata;
 
-import android.util.Log;
-import android.widget.Toast;
+import java.util.Base64;
 
-import java.math.BigInteger;
+
+
+import android.util.Log;
+
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.security.AlgorithmParameters;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.Key;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.Date;
 
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
-import io.realm.Realm;
 import io.realm.RealmObject;
-import io.realm.SyncCredentials;
-import io.realm.SyncUser;
 import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
@@ -59,6 +52,8 @@ public class Compte extends RealmObject{
     private PBEKeySpec keySpec;
     @Ignore
     private SecretKeyFactory keyFactory;
+    @Ignore
+    private AlgorithmParameters params;
 
     public Compte(){
         super();
@@ -103,31 +98,20 @@ public class Compte extends RealmObject{
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = "";
 
-        Log.e("ERROR", password);
         //On le crypte directement
         try {
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+            byte[] encryptedTextBytes = cipher.doFinal(password.getBytes());
+            for(byte b : encryptedTextBytes)
+                this.password += b + " "; // On brouille encore plus les pistes
         } catch (Exception e) {
             Log.e("ERROR", e.getMessage());
         }
-        try {
-            this.password = new String(cipher.doFinal(password.getBytes()));
-        } catch (Exception e) {
-            Log.e("ERROR", e.getMessage());
-        }
-        Log.e("ERROR", this.password);
     }
 
-    protected void setCompteId() {
-        try {
-            CompteId = URL + login;
-        }
-        catch (Exception e) {
-
-        }
-    }
+    protected void setCompteId() { CompteId = URL + login; }
 
     public void setURL(String URL) {
         this.URL = URL;
@@ -141,38 +125,36 @@ public class Compte extends RealmObject{
 
     public void setKey(String key) {
         //On génère le cipher
-        keySpec = new PBEKeySpec(key.toCharArray(), "S4f3Ch3st!*&ée78gh".getBytes(), 10);
-        keyFactory = null;
         try {
+            keySpec = new PBEKeySpec(key.toCharArray(), "S4f3Ch3st!*&ée78gh".getBytes(), 10);
             keyFactory = SecretKeyFactory.getInstance("PBEWithMD5AndDES");
-        } catch (Exception e) {
-            Log.e("ERROR", e.getMessage());
-        }
-        try {
             secretKey = keyFactory.generateSecret(keySpec);
             Log.e("ERROR", secretKey.toString());
-        } catch (Exception e) {
-            Log.e("ERROR", e.getMessage());
-        }
-        try {
             cipher = Cipher.getInstance("PBEWithMD5AndDES");
         } catch (Exception e) {
             Log.e("ERROR", e.getMessage());
         }
+
+        params = cipher.getParameters();
     }
 
-    public String getUnencryptedPassord() {
-        AlgorithmParameters params = cipher.getParameters();
+    public String getUnencryptedPassword() {
+        String res = "";
         try {
+            String[] stringOfBytes = this.password.split("\\s");
+            final int n = stringOfBytes.length;
+            byte[] to_decode = new byte[n];
+            for(int i = 0; i<n; i++)
+                to_decode[i] = Byte.valueOf(stringOfBytes[i]);
+
             cipher.init(Cipher.DECRYPT_MODE, secretKey, params);
+            byte[] decryptedTextBytes = cipher.doFinal(to_decode);//encrypted.getBytes());
+            res = new String(decryptedTextBytes, Charset.forName("iso-8859-1"));
+            Log.e("ERROR", res);
         } catch (Exception e) {
             Log.e("ERROR", e.getMessage());
+            res = "[ERROR DATA CORRUPTED]";
         }
-        try {
-            return new String(cipher.doFinal(password.getBytes()));
-        } catch (Exception e) {
-            Log.e("ERROR", e.getMessage());
-        }
-        return "";
+        return res;
     }
 }

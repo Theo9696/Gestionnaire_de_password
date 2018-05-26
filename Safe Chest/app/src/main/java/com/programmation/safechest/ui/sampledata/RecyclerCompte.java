@@ -23,8 +23,11 @@ import io.realm.RealmRecyclerViewAdapter;
 
 public class RecyclerCompte extends RealmRecyclerViewAdapter<Compte, RecyclerCompte.MyViewHolder> {
 
-    public RecyclerCompte(OrderedRealmCollection<Compte> data) {
+    String key;
+
+    public RecyclerCompte(OrderedRealmCollection<Compte> data, String key) {
         super(data, true);
+        this.key = key;
     }
 
     @Override
@@ -48,13 +51,13 @@ public class RecyclerCompte extends RealmRecyclerViewAdapter<Compte, RecyclerCom
         MyViewHolder(View compteView) {
             super(compteView);
             contentView = compteView.findViewById(R.id.url);
-            //mButton = compteView.findViewById(R.id.button);
             contentView.setOnClickListener(this);
         }
 
         void setCompte(Compte compte, int position) {
             this.mCompte = compte;
-            this.contentView.setText("URL : " + compte.getURL()+"\nIdentifiant : " + compte.getCompteLogin() + " \nMot de passe : " + compte.getPassword());
+            mCompte.setKey(key);
+            this.contentView.setText("URL : " + compte.getURL()+"\nIdentifiant : " + compte.getCompteLogin() + " \nMot de passe : " + compte.getUnencryptedPassword());
         }
 
         @Override
@@ -66,7 +69,7 @@ public class RecyclerCompte extends RealmRecyclerViewAdapter<Compte, RecyclerCom
             EditText UrlText = dialogView.findViewById(R.id.url);
 
             loginText.setText(mCompte.getCompteLogin());
-            PasswordText.setText(mCompte.getPassword());
+            mCompte.setKey(key);PasswordText.setText(mCompte.getUnencryptedPassword());
             UrlText.setText(mCompte.getURL());
 
             Realm theRealm = this.mCompte.getRealm();

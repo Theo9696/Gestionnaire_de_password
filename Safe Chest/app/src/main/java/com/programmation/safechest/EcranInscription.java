@@ -48,8 +48,6 @@ public class EcranInscription extends AppCompatActivity {
         et_password2 = (EditText) findViewById (R.id.et_mdp_inscription_2);
 
         et_ide = (EditText) findViewById (R.id.et_id_inscription);
-        Toast.makeText(getApplicationContext(), "1", Toast.LENGTH_SHORT);
-
 
         mPasserelleMenu.setOnClickListener(new View.OnClickListener() {
 
@@ -62,7 +60,8 @@ public class EcranInscription extends AppCompatActivity {
                 String password2 = et_password2.getText().toString();
                 String ide = et_ide.getText().toString();
 
-
+                attemptLogin();
+                /*
                 if (!password1.equals(password2)) {
                     Toast.makeText(getApplicationContext(),"Les mots de passe doivent être identiques", Toast.LENGTH_SHORT).show();
                 }
@@ -82,7 +81,7 @@ public class EcranInscription extends AppCompatActivity {
                         attemptLogin();
 
                     }
-                }
+                }*/
 
 
 
@@ -98,7 +97,6 @@ public class EcranInscription extends AppCompatActivity {
             // Store values at the time of the login attempt.
             String nickname = et_ide.getText().toString();
             String password = et_password1.getText().toString();
-            Toast.makeText(getApplicationContext(), nickname+password, Toast.LENGTH_SHORT);
 
 
             SyncCredentials credentials = SyncCredentials.usernamePassword(nickname, password, true);

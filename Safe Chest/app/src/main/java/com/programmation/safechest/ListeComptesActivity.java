@@ -58,6 +58,7 @@ public class ListeComptesActivity extends AppCompatActivity {
                     realm.executeTransactionAsync(realm -> {
                         try {
                             Compte compte = new Compte();
+                            compte.setKey(password);
                             compte.setLogin(loginText.getText().toString());
                             compte.setURL(UrlText.getText().toString());
                             compte.setPassword(PasswordText.getText().toString());
@@ -75,7 +76,7 @@ public class ListeComptesActivity extends AppCompatActivity {
 
         OrderedRealmCollection<Compte> comptes = setUpRealm();
 
-        final RecyclerCompte compteRecycler = new RecyclerCompte(comptes);
+        final RecyclerCompte compteRecycler = new RecyclerCompte(comptes, password);
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(compteRecycler);
@@ -123,8 +124,6 @@ public class ListeComptesActivity extends AppCompatActivity {
                 .equalTo("owner", SyncUser.current().getIdentity())
                 .sort("timestamp", Sort.DESCENDING)
                 .findAllAsync();
-        for(Compte compte: comptes)
-            compte.setKey(password);
 
         return comptes;
     }
