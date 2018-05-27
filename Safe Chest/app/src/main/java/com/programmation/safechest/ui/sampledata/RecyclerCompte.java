@@ -2,16 +2,13 @@ package com.programmation.safechest.ui.sampledata;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,13 +19,7 @@ import com.programmation.safechest.sampledata.Compte;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import io.realm.OrderedRealmCollection;
-import io.realm.Realm;
 import io.realm.RealmRecyclerViewAdapter;
 
 import static android.support.v4.content.ContextCompat.startActivity;
@@ -36,24 +27,25 @@ import static android.support.v4.content.ContextCompat.startActivity;
 
 public class RecyclerCompte extends RealmRecyclerViewAdapter<Compte, RecyclerCompte.MyViewHolder> {
 
-    String key;
+    private String key;
 
     public RecyclerCompte(OrderedRealmCollection<Compte> data, String key) {
         super(data, true);
         this.key = key;
     }
 
+    @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.compte_layout, parent, false);
         return new MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final Compte compte = getItem(position);
-        holder.setCompte(compte, position);
+        holder.setCompte(compte);
 
     }
 
@@ -87,7 +79,7 @@ public class RecyclerCompte extends RealmRecyclerViewAdapter<Compte, RecyclerCom
             itemView.setLayoutParams(param);
         }
 
-        void setCompte(Compte compte, int position) {
+        void setCompte(Compte compte) {
             this.mCompte = compte;
             mCompte.setKey(key);
             String info_compte = "URL : " + compte.getURL()+"\nIdentifiant : " + compte.getCompteLogin() + " \nMot de passe : " + compte.getUnencryptedPassword();

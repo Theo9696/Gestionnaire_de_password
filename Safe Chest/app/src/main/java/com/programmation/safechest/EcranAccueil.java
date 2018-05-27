@@ -1,22 +1,15 @@
 package com.programmation.safechest;
 
-import android.net.Uri;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toolbar;
 
-import io.realm.SyncUser;
 
 public class EcranAccueil extends AppCompatActivity {
 
-    public final static String AGE = "sdz.chapitreTrois.intent.example.AGE";
-
-    private Button mPasserelle = null;
-    private Button mPasserelle_insc = null;
-    private Button mCredit = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +18,9 @@ public class EcranAccueil extends AppCompatActivity {
         setContentView(R.layout.ecran_accueil);
 
 
-        mPasserelle = (Button) findViewById(R.id.Connect_passerelle);
-        mPasserelle_insc = (Button) findViewById(R.id.Register_passerelle);
-        mCredit = (Button) findViewById(R.id.Credits);
+        Button mPasserelle =  findViewById(R.id.Connect_passerelle);
+        Button mPasserelle_insc =  findViewById(R.id.Register_passerelle);
+        Button mCredit =  findViewById(R.id.Credits);
 
         mPasserelle.setOnClickListener(new View.OnClickListener() {
             @Override

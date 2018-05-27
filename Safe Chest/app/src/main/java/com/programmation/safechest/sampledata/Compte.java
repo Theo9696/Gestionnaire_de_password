@@ -1,12 +1,7 @@
 package com.programmation.safechest.sampledata;
 
-import java.util.Base64;
-
-
 
 import android.util.Log;
-
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.security.AlgorithmParameters;
 import java.util.Date;
@@ -66,29 +61,17 @@ public class Compte extends RealmObject{
         this.URL = "";
         this.timestamp = new Date();
         this.owner="";
-        int i = (int) Math.floor(Math.random()*4);
-        this.color = i;
+        this.color = (int) Math.floor(Math.random()*4);
     }
 
     public int getColor() {
         return color;
     }
 
-    public String getOwner() {
-        return owner;
-    }
-
     public void setOwner(String owner) {
         this.owner = owner;
     }
 
-    public Date getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
 
     public String getCompteId() {
         return CompteId;
