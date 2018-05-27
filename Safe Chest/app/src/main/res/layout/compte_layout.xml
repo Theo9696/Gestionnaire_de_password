@@ -5,37 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="10dp"
+    android:paddingBottom="2dp"
     android:paddingHorizontal="6dp">
 
     <TextView
         android:id="@+id/url"
-        android:background="@android:color/white"
         android:layout_weight="1"
+        android:background="@color/colorCompte2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:backgroundTint="#dde"
+        android:textColor="@color/blanc"
         android:padding="8dp"
         android:maxLines="3"
+        android:drawableTint="@color/blanc"
         android:textSize="16sp"
         android:ellipsize="end"
-        android:drawableLeft="@drawable/account_logo"
+        android:drawableStart="@drawable/account_logo"
         android:drawablePadding="15dp"
 
         />
-
-    <!--
-    <Button
-        android:id="@+id/button"
-        android:background="@drawable/parametre"
-        android:clickable="false"
-        android:layout_margin="10dp"
-        android:layout_gravity="center"
-        android:scaleX="1.25"
-        android:scaleY="1.25"
-        android:layout_width="35sp"
-        android:layout_height="35sp" />
-        -->
 
 
 </LinearLayout>

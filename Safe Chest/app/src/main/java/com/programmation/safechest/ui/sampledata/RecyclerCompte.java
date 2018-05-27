@@ -2,7 +2,10 @@ package com.programmation.safechest.ui.sampledata;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.net.Uri;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +22,10 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import io.realm.OrderedRealmCollection;
 import io.realm.Realm;
 import io.realm.RealmRecyclerViewAdapter;
@@ -33,7 +40,6 @@ public class RecyclerCompte extends RealmRecyclerViewAdapter<Compte, RecyclerCom
     public RecyclerCompte(OrderedRealmCollection<Compte> data, String key) {
         super(data, true);
         this.key = key;
-
     }
 
     @Override
@@ -47,23 +53,46 @@ public class RecyclerCompte extends RealmRecyclerViewAdapter<Compte, RecyclerCom
     public void onBindViewHolder(MyViewHolder holder, int position) {
         final Compte compte = getItem(position);
         holder.setCompte(compte, position);
+
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView contentView;
         Compte mCompte;
-        Button mButton;
+
+
+
 
         MyViewHolder(View compteView) {
             super(compteView);
             contentView = compteView.findViewById(R.id.url);
             contentView.setOnClickListener(this);
+            int i = (int)Math.floor((Math.random()*4));
+            switch(i) {
+                case 0:
+                    contentView.setBackgroundColor(ContextCompat.getColor(compteView.getContext(),R.color.colorCompte2));
+                    break;
+                case 1:
+                    contentView.setBackgroundColor(ContextCompat.getColor(compteView.getContext(),R.color.colorCompte3));
+                    break;
+                case 2:
+                    contentView.setBackgroundColor(ContextCompat.getColor(compteView.getContext(),R.color.colorCompte4));
+                    break;
+                case 3:
+                    contentView.setBackgroundColor(ContextCompat.getColor(compteView.getContext(),R.color.colorCompte1));
+                    break;
+                default:
+                    contentView.setBackgroundColor(ContextCompat.getColor(compteView.getContext(),R.color.colorCompte2));
+            }
+
+
         }
 
         void setCompte(Compte compte, int position) {
             this.mCompte = compte;
             mCompte.setKey(key);
-            this.contentView.setText("URL : " + compte.getURL()+"\nIdentifiant : " + compte.getCompteLogin() + " \nMot de passe : " + compte.getUnencryptedPassword());
+            String info_compte = "URL : " + compte.getURL()+"\nIdentifiant : " + compte.getCompteLogin() + " \nMot de passe : " + compte.getUnencryptedPassword();
+            this.contentView.setText(info_compte);
         }
 
         @Override
