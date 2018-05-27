@@ -5,6 +5,7 @@
 
     <string name="register2">Attention, pour que ton interface soit sécurisée, ton mot de passe doit contenir au moins 12 caractères, un chiffre, une majuscule et un caractère alpha numérique</string>
     <string name="introduction">Cette application vous permet d\'avoir des mots de passe sécurisés pour tous vos comptes sans avoir à les retenir tous</string>
+    <string name="introduction2">Cette application permet d\'avoir des mots de passe sécurisés pour tous vos comptes sans avoir à les retenir tous</string>
     <string name="identifiant">Identifiant</string>
     <string name="password">Mot de passe</string>
     <string name="HintId">Entrez votre identifiant</string>
@@ -21,5 +22,9 @@
     <string name="contentDescr">logo de l\'application</string>
     <string name="contentDescr2">logo de la creation d'un compte</string>
     <string name="contentDescr3">logo de la connexion à un compte</string>
+    <string name="bouton_credits">Crédits</string>
+    <string name="autor">Théo Dollé</string>
+    <string name="autor2">Mathieu Béligon</string>
+    <string name="intro_autor">Elle a été créée dans le cadre d\'un enseignement à l\'école CentraleSupélec par les élèves :</string>
 
 </resources>

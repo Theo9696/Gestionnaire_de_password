@@ -17,7 +17,7 @@
 
         <activity android:name=".EcranAccueil"
             android:label="@string/app_name"
-            android:launchMode="singleTop"
+
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +28,6 @@
 
         <activity
             android:name=".EcranConnexion"
-            android:launchMode="singleTop"
             android:label="@string/app_name">
 
         </activity>
@@ -36,7 +35,6 @@
 
         <activity
             android:name=".EcranInscription"
-            android:launchMode="singleTop"
             android:label="@string/app_name">
 
         </activity>
@@ -45,6 +43,11 @@
             android:name=".ListeComptesActivity"
             android:label="Vos comptes"
             android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".Credit"
+            android:label="@string/bouton_credits">
 
         </activity>
         </application>

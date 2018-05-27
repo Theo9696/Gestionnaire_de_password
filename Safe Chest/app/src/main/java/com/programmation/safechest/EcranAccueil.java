@@ -7,25 +7,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toolbar;
 
+import io.realm.SyncUser;
+
 public class EcranAccueil extends AppCompatActivity {
 
     public final static String AGE = "sdz.chapitreTrois.intent.example.AGE";
 
     private Button mPasserelle = null;
     private Button mPasserelle_insc = null;
+    private Button mCredit = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.ecran_accueil);
 
 
-
-        //Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-        //toolbar.setLogo(R.drawable.logo);
-
-        Button mPasserelle = (Button) findViewById(R.id.Connect_passerelle);
-        Button mPasserelle_insc = (Button) findViewById(R.id.Register_passerelle);
+        mPasserelle = (Button) findViewById(R.id.Connect_passerelle);
+        mPasserelle_insc = (Button) findViewById(R.id.Register_passerelle);
+        mCredit = (Button) findViewById(R.id.Credits);
 
         mPasserelle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,7 +37,7 @@ public class EcranAccueil extends AppCompatActivity {
 
                 // Puis on lance l'intent !
                 startActivity(secondeActivite);
-            }
+                }
         });
 
         mPasserelle_insc.setOnClickListener(new View.OnClickListener() {
@@ -48,7 +50,22 @@ public class EcranAccueil extends AppCompatActivity {
                 // Puis on lance l'intent !
                 startActivity(secondeActivite);
             }
+
         });
+
+        mCredit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Le premier paramètre est le nom de l'activité actuelle
+                // Le second est le nom de l'activité de destination
+                Intent secondeActivite = new Intent(EcranAccueil.this, Credit.class);
+
+                // Puis on lance l'intent !
+                startActivity(secondeActivite);
+            }
+
+        });
+
+        }
     }
 
-}
