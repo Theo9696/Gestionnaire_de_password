@@ -1,11 +1,13 @@
 package com.programmation.safechest;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +26,7 @@ import com.programmation.safechest.ui.sampledata.RecyclerCompte;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.Random;
@@ -54,28 +57,33 @@ public class ListeComptesActivity extends AppCompatActivity {
             PasswordText.setText(generate_password());
             EditText UrlText = dialogView.findViewById(R.id.url);
             new AlertDialog.Builder(ListeComptesActivity.this)
-                .setTitle("Add a new site")
-                .setMessage("Set url, id and passord !")
-                .setView(dialogView)
-                .setPositiveButton("Add", (dialog, which) -> {
-                    realm.executeTransactionAsync(realm -> {
-                        try {
-                            Compte compte = new Compte();
-                            compte.setKey(password);
-                            compte.setLogin(loginText.getText().toString());
-                            compte.setURL(UrlText.getText().toString());
-                            compte.setPassword(PasswordText.getText().toString());
-                            compte.setOwner(SyncUser.current().getIdentity());
-                            realm.insert(compte);
-                        } catch (Exception e){
-                            setError("Un compte avec ce login existe déjà !");
-                        }
-                    });
-                })
-                .setNegativeButton("Cancel", null)
-                .create()
-                .show();
+                    .setTitle("Add a new site")
+                    .setMessage("Set url, id and passord !")
+                    .setView(dialogView)
+                    .setPositiveButton("Add", (dialog, which) -> {
+                        realm.executeTransactionAsync(realm -> {
+                            try {
+                                Compte compte = new Compte();
+                                compte.setKey(password);
+                                compte.setLogin(loginText.getText().toString());
+                                compte.setURL(UrlText.getText().toString());
+                                compte.setPassword(PasswordText.getText().toString());
+                                compte.setOwner(SyncUser.current().getIdentity());
+                                realm.insert(compte);
+                            } catch (Exception e) {
+                                setError("Un compte avec ce login existe déjà !");
+                            }
+                        });
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .create()
+                    .show();
         });
+
+        afficher();
+    }
+
+    public void afficher(){
 
         OrderedRealmCollection<Compte> comptes = setUpRealm();
 
@@ -93,16 +101,35 @@ public class ListeComptesActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                int position = viewHolder.getAdapterPosition();
-                String id = compteRecycler.getItem(position).getCompteId();
-                realm.executeTransactionAsync(realm -> {
-                    Compte compte = realm.where(Compte.class)
-                            .equalTo("CompteId", id)
-                            .findFirst();
-                    if (compte != null) {
-                        compte.deleteFromRealm();
-                    }
-                });
+                try {
+                    //On vérifie que l'utilisateur sait ce qu'il fait
+                    View dialogView = LayoutInflater.from(ListeComptesActivity.this).inflate(R.layout.suppression, null);
+
+                    new AlertDialog.Builder(ListeComptesActivity.this)
+                            .setTitle("Suppression du mémo")
+                            .setView(dialogView)
+                            .setPositiveButton("Supprimer",  (dialog, which) -> {
+                                //On supprime de la bdd
+                                int position = viewHolder.getAdapterPosition();
+                                String id = compteRecycler.getItem(position).getCompteId();
+                                realm.executeTransactionAsync(realm -> {
+                                    Compte compte = realm.where(Compte.class)
+                                            .equalTo("CompteId", id)
+                                            .findFirst();
+                                    if (compte != null) {
+                                        compte.deleteFromRealm();
+                                    }
+                                });
+                            })
+                            .setNegativeButton("Annuler",   (dialog, which) -> {
+                                afficher();
+                            })
+                            .create()
+                            .show();
+                }
+                catch (Exception e){
+                    Log.e("ERROR", e.getMessage() + "\n" + e.getStackTrace());
+                }
             }
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
