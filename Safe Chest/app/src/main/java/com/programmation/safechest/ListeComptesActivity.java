@@ -1,35 +1,31 @@
 package com.programmation.safechest;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import io.realm.OrderedRealmCollection;
-import io.realm.Realm;
-import io.realm.RealmResults;
-import io.realm.Sort;
-import io.realm.SyncConfiguration;
-import io.realm.SyncUser;
 import com.programmation.safechest.sampledata.Compte;
 import com.programmation.safechest.ui.sampledata.RecyclerCompte;
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.widget.LinearLayout;
-import android.widget.Toast;
-
 import java.util.Random;
+
+import io.realm.OrderedRealmCollection;
+import io.realm.Realm;
+import io.realm.Sort;
+import io.realm.SyncConfiguration;
+import io.realm.SyncUser;
 
 
 public class ListeComptesActivity extends AppCompatActivity {
@@ -50,19 +46,23 @@ public class ListeComptesActivity extends AppCompatActivity {
         getSupportActionBar().setLogo(R.drawable.logo_petit);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //Le bouton pour rajouter un compte
         findViewById(R.id.fab).setOnClickListener(view -> {
             View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_task, null);
+
             EditText loginText = dialogView.findViewById(R.id.login);
             EditText PasswordText = dialogView.findViewById(R.id.password);
-            PasswordText.setText(generate_password());
             EditText UrlText = dialogView.findViewById(R.id.url);
+
+            PasswordText.setText(generate_password()); // On en génère un robuste (possibilité de modifier)
+
             new AlertDialog.Builder(ListeComptesActivity.this)
-                    .setTitle("Add a new site")
-                    .setMessage("Set url, id and passord !")
+                    .setTitle("Rajouter un compte")
+                    .setMessage("Renseignez url, id et mot de passe !")
                     .setView(dialogView)
-                    .setPositiveButton("Add", (dialog, which) -> {
+                    .setPositiveButton("Ajouter", (dialog, which) -> {
                         if (UrlText.getText().toString().equals("") || PasswordText.getText().toString().equals("") || loginText.getText().toString().equals("")) {
-                            Toast.makeText(this, "Aucun des trois champs ne peut être vide", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ListeComptesActivity.this, "Aucun des trois champs ne peut être vide", Toast.LENGTH_SHORT).show();
                         } else {
                         realm.executeTransactionAsync(realm -> {
                             try {
@@ -77,16 +77,17 @@ public class ListeComptesActivity extends AppCompatActivity {
                                 realm.insert(compte);
 
                             } catch (Exception e) {
-                                setError("Un compte avec ce login existe déjà !");
+                                Toast.makeText(ListeComptesActivity.this, "Un compte avec ce login existe déjà !", Toast.LENGTH_SHORT).show();
                             }
                         });
                         }
                     })
-                    .setNegativeButton("Cancel", null)
+                    .setNegativeButton("Annuler", null)
                     .create()
                     .show();
         });
 
+        //On affiche tous les comptes
         afficher();
     }
 
@@ -99,6 +100,7 @@ public class ListeComptesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(compteRecycler);
 
+        //On permet de supprimer un compte en le swipant
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
             @Override
@@ -129,6 +131,7 @@ public class ListeComptesActivity extends AppCompatActivity {
                                 });
                             })
                             .setNegativeButton("Annuler",   (dialog, which) -> {
+                                //On réaffiche tout
                                 afficher();
                             })
                             .create()
@@ -144,18 +147,16 @@ public class ListeComptesActivity extends AppCompatActivity {
     }
 
     public String choose_random(String caracters){
+        //On choisi un caractère aléatoirement
         Random randomizer = new Random();
         return String.valueOf(caracters.toCharArray()[randomizer.nextInt(caracters.length())]);
     }
 
     public String generate_password(){
+        //On génère un mot de passe robuste à 20 caractères
         String res = "";
         for(; res.length() < 20; res += choose_random("azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN,;:!?./§$*ù^£µ%¨&é\"'(-è_çà)=1234567890°+'"));
         return res;
-    }
-
-    private void setError(String errorText){
-        Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
     }
 
     private OrderedRealmCollection<Compte> setUpRealm() {
@@ -163,17 +164,16 @@ public class ListeComptesActivity extends AppCompatActivity {
             Realm.setDefaultConfiguration(SyncConfiguration.automatic());
         }
         catch(Exception e){
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Erreur de connexion", Toast.LENGTH_SHORT).show();
+            Log.e("ERROR", e.getMessage());
         }
         realm = Realm.getDefaultInstance();
 
-        OrderedRealmCollection<Compte> comptes =  realm
+        return realm
                 .where(Compte.class)
                 .equalTo("owner", SyncUser.current().getIdentity())
                 .sort("timestamp", Sort.DESCENDING)
                 .findAllAsync();
-
-        return comptes;
     }
 
     @Override

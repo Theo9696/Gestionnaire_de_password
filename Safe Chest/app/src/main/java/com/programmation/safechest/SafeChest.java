@@ -11,7 +11,6 @@ public class SafeChest extends Application{
     public void onCreate() {
         super.onCreate();
         Realm.init(this);
-
     }
 }
 

@@ -1,7 +1,6 @@
 package com.programmation.safechest;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -23,50 +22,33 @@ import static com.programmation.safechest.Constants.AUTH_URL;
 public class EcranConnexion extends AppCompatActivity {
 
     public final static String PASSWORD = "com.programmation.safechest.Password";
-    public final static String ID = "com.programmation.safechest.ID";
 
-
-
-    EditText ide;
-    EditText e_password;
+    EditText et_id;
+    EditText et_password;
 
     private Button mPasserelleMenu = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.connexion);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.drawable.logo_petit);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
+        logUsersOut(); //On a besoin du mot de passe pour crypter, et c'est plus sécurisé de redemander
 
-        logUsersOut();
+        et_password = findViewById (R.id.et_mdp);
+        et_id = findViewById (R.id.et_id);
 
-        e_password = (EditText) findViewById (R.id.et_mdp);
-        ide = (EditText) findViewById (R.id.et_id);
+        Button bConnexion = findViewById(R.id.Connect_info);
 
-        Button mPasserelleMenu = (Button) findViewById(R.id.Connect_info);
-
-        mPasserelleMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Le premier paramètre est le nom de l'activité actuelle
-                // Le second est le nom de l'activité de destination
-                Intent menu_principal = new Intent(EcranConnexion.this, ListeComptesActivity.class);
-
-                // On rajoute un extra
-                menu_principal.putExtra(PASSWORD, e_password.getText().toString());
-                menu_principal.putExtra(ID, ide.getText().toString());
-
-                // Puis on lance l'intent !
-                attemptLogin();
-            }
+        bConnexion.setOnClickListener(v -> {
+            Intent menu_principal = new Intent(EcranConnexion.this, ListeComptesActivity.class);
+            menu_principal.putExtra(PASSWORD, et_password.getText().toString()); //Pour crypter
+            attemptLogin();
         });
     }
 
@@ -77,31 +59,32 @@ public class EcranConnexion extends AppCompatActivity {
     }
 
     private void attemptLogin() {
-        // Reset errors.
-        ide.setError(null);
-        e_password.setError(null);
-        // Store values at the time of the login attempt.
-        final String nickname = ide.getText().toString();
-        String password = e_password.getText().toString();
+        et_id.setError(null);
+        et_password.setError(null);
+
+        final String nickname = et_id.getText().toString();
+        String password = et_password.getText().toString();
 
         if (nickname.equals("")) {
-            Toast.makeText(this,"Votre identifiant ne peut pas être vide", Toast.LENGTH_SHORT).show();
+            et_id.setError("Votre identifiant ne peut pas être vide");
+            et_id.requestFocus();
         } else if (password.equals("")) {
-            Toast.makeText(this,"Votre mot de passe ne peut pas être vide", Toast.LENGTH_SHORT).show();
+            et_password.setError("Votre mot de passe ne peut pas être vide");
+            et_password.requestFocus();
         } else {
             final SyncCredentials credentials = SyncCredentials.usernamePassword(nickname, password, false);
             SyncUser.logInAsync(credentials, AUTH_URL, new SyncUser.Callback<SyncUser>() {
                 @Override
                 public void onSuccess(SyncUser user) {
                     Intent liste_comptes_intent = new Intent(EcranConnexion.this, ListeComptesActivity.class);
-                    liste_comptes_intent.putExtra(PASSWORD, password);
+                    liste_comptes_intent.putExtra(PASSWORD, password); // cryptage
                     startActivity(liste_comptes_intent);
                 }
 
                 @Override
                 public void onError(ObjectServerError error) {
-                    ide.setError("La connexion ne peut s'établir ou la combinaison mot de passe utilisateur est incorrecte");
-                    ide.requestFocus();
+                    et_id.setError("La connexion ne peut s'établir ou la combinaison mot de passe utilisateur est incorrecte");
+                    et_id.requestFocus();
                     Log.e("Login error", error.toString());
                 }
             });
@@ -111,15 +94,11 @@ public class EcranConnexion extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-
             case R.id.home:
-
-
                 Intent intent = NavUtils.getParentActivityIntent(this);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 NavUtils.navigateUpTo(this, intent);
                 return true;
-
         }
         return super.onOptionsItemSelected(item);
     }
@@ -129,5 +108,4 @@ public class EcranConnexion extends AppCompatActivity {
         onBackPressed();
         return true;
     }
-
 }
