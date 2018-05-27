@@ -1,3 +1,6 @@
+
+//------------------------
+//Génération d'un nouveau mot de passe
 function randint(min, max){
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -13,7 +16,7 @@ function newPassword(){
   return password;
 }
 
-
+//------------------------
 /* Manipulation du DOM */
 
 function search_for_id(node){
@@ -32,7 +35,7 @@ function search_for_id(node){
 }
 
 function search_for_submit(node){
-  //On cherche récursivement l'input du login.
+  //On cherche récursivement le bouton d'envoi.
   //Ce doit être un input non hidden
   if(node.nodeName.toLowerCase() == "input" && node.getAttribute("type") == "submit")
     return node;
@@ -61,9 +64,7 @@ function search_for_password_confirmation(node, passwordInput){
   return false;
 }
 
-/* Les fonctions du plugin */
 function find_password_form(){
-
   //On cherche un input de password
   var passwordInput = document.querySelector('input[type=password]');
   if(!passwordInput)
@@ -94,6 +95,10 @@ function find_password_form(){
   return {"type": false};
 }
 
+
+
+//-------------------------
+/* Fonctions principales */
 function auto_login(login_form, login_id){
   // On rempli les champs id / password avec les valeurs connues
   login_form["password"].setAttribute("value", login_id["password"]);
@@ -122,25 +127,22 @@ function ecouter(form){
     if(!confirm("Enregistrer dans Safe Chest ?", null, "btn-success", "Oui"))
       return true;
 
-    // On les retient
+    // On les affiche à défaut de pouvoir faire autre chose
+    alert(id + " " + password);
 
     return true;
   });
 }
 
 
-function get_site(){
-  return window.location.host;
-}
-
-
-/* On gère le tout */
+//----------------------
+/* Le corps du plugin */
 function main(){
   var form = find_password_form();
 
   // Connexion, on rempli si possible, sinon on intercepte
   if(form["type"] == "login"){
-    login_id = {"id": "Mathieu", "password": "p4ssw0rd"};
+    login_id = {"id": "Mathieu", "password": "p4ssw0rd"}; //Aucun moyen de les récupérer...
     auto_login(form, login_id);
     // On écoute l'envoie du formulaire pour enregistrer id et mdp si changement
     ecouter(form);
