@@ -73,10 +73,9 @@ public class RecyclerCompte extends RealmRecyclerViewAdapter<Compte, RecyclerCom
             UrlText.setText(mCompte.getURL());
 
             new AlertDialog.Builder(view.getContext())
-                .setTitle("Votre Mémo")
-                .setMessage("Changez vos entrées")
+                .setTitle("Votre Mémo de compte")
                 .setView(dialogView)
-                .setPositiveButton("Ok", null)
+                .setPositiveButton("Fermer", null)
                 .create()
                 .show();
         }
