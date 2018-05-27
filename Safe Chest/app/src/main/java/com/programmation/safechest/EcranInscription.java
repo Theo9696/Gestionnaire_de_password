@@ -49,7 +49,7 @@ public class EcranInscription extends AppCompatActivity {
 
             //On vérifie les mots de passe
             if (!password1.equals(password2)) {
-                et_password2.setError("L'identifiant ne doit pas être vide");
+                et_password2.setError("Les mots de passe doivent être identiques");
                 et_password2.requestFocus();
             }
             else {
