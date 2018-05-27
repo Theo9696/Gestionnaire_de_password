@@ -50,7 +50,8 @@ public class EcranInscription extends AppCompatActivity {
 
             //On vérifie les mots de passe
             if (!password1.equals(password2)) {
-                Toast.makeText(getApplicationContext(),"Les mots de passe doivent être identiques", Toast.LENGTH_SHORT).show();
+                et_password2.setError("L'identifiant ne doit pas être vide");
+                et_password2.requestFocus();
             }
             else {
                 // Le mot de passe doit être fort
@@ -58,14 +59,14 @@ public class EcranInscription extends AppCompatActivity {
                     et_id.setError("L'identifiant ne doit pas être vide");
                     et_id.requestFocus();
                 } else if (password1.length() < 12){
-                    et_id.setError("Votre mot de passe maître doit contenir au minimum 12 caractères");
-                    et_id.requestFocus();
+                    et_password1.setError("Votre mot de passe maître doit contenir au minimum 12 caractères");
+                    et_password1.requestFocus();
                 } else if (password1.toLowerCase().equals(password1) || password1.toUpperCase().equals(password1)){
-                    et_id.setError("Votre mot de passe maître doit contenir des majuscules et des minuscules");
-                    et_id.requestFocus();
+                    et_password1.setError("Votre mot de passe maître doit contenir des majuscules et des minuscules");
+                    et_password1.requestFocus();
                 } else if (!isAnyNumeric(password1)){
-                    et_id.setError("Votre mot de passe maître doit contenir des nombres et un caractère spécial : @, ?, . ... ");
-                    et_id.requestFocus();
+                    et_password1.setError("Votre mot de passe maître doit contenir des nombres et un caractère spécial : @, ?, . ... ");
+                    et_password1.requestFocus();
                 }
                 else {
                     // sinon on inscrit

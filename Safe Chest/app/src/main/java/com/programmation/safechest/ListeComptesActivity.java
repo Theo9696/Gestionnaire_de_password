@@ -192,10 +192,7 @@ public class ListeComptesActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         SyncUser syncUser = SyncUser.current();
         switch(item.getItemId()) {
-
             case R.id.action_logout:
-
-
                 if (syncUser != null) {
                     syncUser.logOut();
                     Intent intent = new Intent(this, EcranAccueil.class);
@@ -204,7 +201,7 @@ public class ListeComptesActivity extends AppCompatActivity {
                 }
                 return true;
             case R.id.home:
-                // La ligne de code ci-dessous permet d'activité le bouton retour
+                // La ligne de code ci-dessous permet d'activer le bouton retour
                 Intent intent = NavUtils.getParentActivityIntent(this);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 NavUtils.navigateUpTo(this, intent);
@@ -218,5 +215,4 @@ public class ListeComptesActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
-
 }
