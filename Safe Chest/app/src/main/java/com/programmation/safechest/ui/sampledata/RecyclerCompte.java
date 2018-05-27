@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.programmation.safechest.R;
@@ -53,30 +52,10 @@ public class RecyclerCompte extends RealmRecyclerViewAdapter<Compte, RecyclerCom
         TextView contentView;
         Compte mCompte;
 
-
-
-
         MyViewHolder(View compteView) {
             super(compteView);
             contentView = compteView.findViewById(R.id.url);
             contentView.setOnClickListener(this);
-
-
-
-        }
-
-        public void setVisibility(boolean isVisible){
-            RecyclerView.LayoutParams param = (RecyclerView.LayoutParams)itemView.getLayoutParams();
-            if (isVisible){
-                param.height = LinearLayout.LayoutParams.WRAP_CONTENT;
-                param.width = LinearLayout.LayoutParams.MATCH_PARENT;
-                itemView.setVisibility(View.VISIBLE);
-            }else{
-                itemView.setVisibility(View.GONE);
-                param.height = 0;
-                param.width = 0;
-            }
-            itemView.setLayoutParams(param);
         }
 
         void setCompte(Compte compte) {
@@ -100,7 +79,6 @@ public class RecyclerCompte extends RealmRecyclerViewAdapter<Compte, RecyclerCom
                 default:
                     contentView.setBackgroundColor(ContextCompat.getColor(contentView.getContext(),R.color.colorCompte2));
             }
-
         }
 
         @Override
@@ -115,14 +93,13 @@ public class RecyclerCompte extends RealmRecyclerViewAdapter<Compte, RecyclerCom
             mCompte.setKey(key);PasswordText.setText(mCompte.getUnencryptedPassword());
             UrlText.setText(mCompte.getURL());
 
+            //On ouvre le détail
             new AlertDialog.Builder(view.getContext())
                 .setTitle("Votre Mémo de compte")
                 .setView(dialogView)
                 .setNegativeButton("Fermer", null)
                     .setPositiveButton("Se rendre sur le site", (dialog, which) -> {
-
                         try {
-
                             String url = UrlText.getText().toString();
                             //On check que l'URL semble bien valide
                             if (!url.startsWith("http://www.") && !url.startsWith("https://www.")) {

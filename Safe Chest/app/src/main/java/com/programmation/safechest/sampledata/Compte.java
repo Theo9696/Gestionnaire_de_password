@@ -72,7 +72,6 @@ public class Compte extends RealmObject{
         this.owner = owner;
     }
 
-
     public String getCompteId() {
         return CompteId;
     }
@@ -92,10 +91,12 @@ public class Compte extends RealmObject{
     public void setPassword(String password) {
         this.password = "";
 
-        //On le crypte directement
         try {
+            //On le crypte directement
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);
             byte[] encryptedTextBytes = cipher.doFinal(password.getBytes());
+
+            //Et on met les byte dans un String
             for(byte b : encryptedTextBytes)
                 this.password += b + " "; // On brouille encore plus les pistes
         } catch (Exception e) {
@@ -116,7 +117,7 @@ public class Compte extends RealmObject{
     }
 
     public void setKey(String key) {
-        //On génère le cipher
+        //On génère le cipher, à partir du mot de passe utilisateur
         try {
             keySpec = new PBEKeySpec(key.toCharArray(), "S4f3Ch3st!*&ée78gh".getBytes(), 10);
             keyFactory = SecretKeyFactory.getInstance("PBEWithMD5AndDES");
@@ -126,23 +127,23 @@ public class Compte extends RealmObject{
         } catch (Exception e) {
             Log.e("ERROR", e.getMessage());
         }
-
         params = cipher.getParameters();
     }
 
     public String getUnencryptedPassword() {
         String res = "";
         try {
+            //Il faut repasser à la chaine de bytes
             String[] stringOfBytes = this.password.split("\\s");
             final int n = stringOfBytes.length;
             byte[] to_decode = new byte[n];
             for(int i = 0; i<n; i++)
                 to_decode[i] = Byte.valueOf(stringOfBytes[i]);
 
+            //Puis on décrypte
             cipher.init(Cipher.DECRYPT_MODE, secretKey, params);
             byte[] decryptedTextBytes = cipher.doFinal(to_decode);//encrypted.getBytes());
             res = new String(decryptedTextBytes, Charset.forName("iso-8859-1"));
-            Log.e("ERROR", res);
         } catch (Exception e) {
             Log.e("ERROR", e.getMessage());
             res = "[ERROR DATA CORRUPTED]";
