@@ -26,6 +26,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
+import java.util.Random;
+
 
 public class ListeComptesActivity extends AppCompatActivity {
 
@@ -49,6 +51,7 @@ public class ListeComptesActivity extends AppCompatActivity {
             View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_task, null);
             EditText loginText = dialogView.findViewById(R.id.login);
             EditText PasswordText = dialogView.findViewById(R.id.password);
+            PasswordText.setText(generate_password());
             EditText UrlText = dialogView.findViewById(R.id.url);
             new AlertDialog.Builder(ListeComptesActivity.this)
                 .setTitle("Add a new site")
@@ -104,6 +107,17 @@ public class ListeComptesActivity extends AppCompatActivity {
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
+    }
+
+    public String choose_random(String caracters){
+        Random randomizer = new Random();
+        return String.valueOf(caracters.toCharArray()[randomizer.nextInt(caracters.length())]);
+    }
+
+    public String generate_password(){
+        String res = "";
+        for(; res.length() < 20; res += choose_random("azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN,;:!?./§$*ù^£µ%¨&é\"'(-è_çà)=1234567890°+'"));
+        return res;
     }
 
     private void setError(String errorText){
