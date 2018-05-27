@@ -72,8 +72,6 @@ public class RecyclerCompte extends RealmRecyclerViewAdapter<Compte, RecyclerCom
             mCompte.setKey(key);PasswordText.setText(mCompte.getUnencryptedPassword());
             UrlText.setText(mCompte.getURL());
 
-            Realm theRealm = this.mCompte.getRealm();
-
             new AlertDialog.Builder(view.getContext())
                 .setTitle("Votre Mémo")
                 .setMessage("Changez vos entrées")
@@ -81,7 +79,6 @@ public class RecyclerCompte extends RealmRecyclerViewAdapter<Compte, RecyclerCom
                 .setPositiveButton("Ok", null)
                 .create()
                 .show();
-            theRealm.close();
         }
     }
 }
