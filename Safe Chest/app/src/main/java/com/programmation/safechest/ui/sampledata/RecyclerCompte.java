@@ -107,8 +107,6 @@ public class RecyclerCompte extends RealmRecyclerViewAdapter<Compte, RecyclerCom
                             }
                             Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                             startActivity(view.getContext(), i, null);
-                        } catch (ActivityNotFoundException e) {
-                            Toast.makeText(view.getContext(),"Nous n'avons pas pu accéder au site, vérifiez que l'url est bien renseignée et valide",Toast.LENGTH_SHORT).show();
                         } catch (Exception e){
                             Toast.makeText(view.getContext(), "Essayez de vous connecter manuellement", Toast.LENGTH_SHORT).show();
                         }
