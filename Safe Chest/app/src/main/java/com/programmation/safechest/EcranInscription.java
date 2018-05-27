@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Map;
+
 import io.realm.ObjectServerError;
 import io.realm.SyncCredentials;
 import io.realm.SyncUser;
@@ -89,34 +91,42 @@ public class EcranInscription extends AppCompatActivity {
 
     }
 
-        private void attemptLogin() {
-            // Reset errors.
-            et_ide.setError(null);
-            et_password1.setError(null);
-            // Store values at the time of the login attempt.
-            String nickname = et_ide.getText().toString();
-            String password = et_password1.getText().toString();
+    private void logUsersOut(){
+        Map<String, SyncUser> users = SyncUser.all();
+        for (Map.Entry<String, SyncUser> user : users.entrySet())
+            user.getValue().logOut();
+    }
+
+    private void attemptLogin() {
+        logUsersOut();
+
+        // Reset errors.
+        et_ide.setError(null);
+        et_password1.setError(null);
+        // Store values at the time of the login attempt.
+        String nickname = et_ide.getText().toString();
+        String password = et_password1.getText().toString();
 
 
-            SyncCredentials credentials = SyncCredentials.usernamePassword(nickname, password, true);
-            SyncUser.logInAsync(credentials, AUTH_URL, new SyncUser.Callback<SyncUser>() {
-                @Override
-                public void onSuccess(SyncUser user) {
+        SyncCredentials credentials = SyncCredentials.usernamePassword(nickname, password, true);
+        SyncUser.logInAsync(credentials, AUTH_URL, new SyncUser.Callback<SyncUser>() {
+            @Override
+            public void onSuccess(SyncUser user) {
 
-                    Intent menu_principal = new Intent(EcranInscription.this, ListeComptesActivity.class);
-                    Toast.makeText(getApplicationContext(), "don't succeed to open listescompte", Toast.LENGTH_SHORT);
-                    startActivity(menu_principal);
-                }
+                Intent liste_comptes_intent = new Intent(EcranInscription.this, ListeComptesActivity.class);
+                liste_comptes_intent.putExtra(PASSWORD, password);
+                startActivity(liste_comptes_intent);
+            }
 
-                @Override
-                public void onError(ObjectServerError error) {
+            @Override
+            public void onError(ObjectServerError error) {
 
-                    et_ide.setError("Un utilisateur avec ce mot de passe existe déjà ou la connexion ne peut s'établir" + error.toString());
-                    et_ide.requestFocus();
-                    Log.e("Login error", error.toString());
-                }
-            });
-        }
+                et_ide.setError("Un utilisateur avec ce mot de passe existe déjà ou la connexion ne peut s'établir");
+                et_ide.requestFocus();
+                Log.e("Login error", error.toString());
+            }
+        });
+    }
 
     public static boolean isNumeric(String str)
     {
@@ -134,9 +144,9 @@ public class EcranInscription extends AppCompatActivity {
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     NavUtils.navigateUpTo(this, intent);
                 }catch (NullPointerException e){
-                    Toast.makeText(this, e.getMessage()+"e", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }catch (Exception e ) {
-            Toast.makeText(this, e.getMessage() + "d", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
                 return true;

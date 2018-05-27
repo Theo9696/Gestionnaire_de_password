@@ -92,9 +92,9 @@ public class EcranConnexion extends AppCompatActivity {
             SyncUser.logInAsync(credentials, AUTH_URL, new SyncUser.Callback<SyncUser>() {
                 @Override
                 public void onSuccess(SyncUser user) {
-                    Intent menu_principal = new Intent(EcranConnexion.this, ListeComptesActivity.class);
-                    menu_principal.putExtra(PASSWORD, password);
-                    startActivity(menu_principal);
+                    Intent liste_comptes_intent = new Intent(EcranConnexion.this, ListeComptesActivity.class);
+                    liste_comptes_intent.putExtra(PASSWORD, password);
+                    startActivity(liste_comptes_intent);
                 }
 
                 @Override
