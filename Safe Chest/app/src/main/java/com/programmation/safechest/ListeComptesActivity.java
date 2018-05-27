@@ -61,8 +61,13 @@ public class ListeComptesActivity extends AppCompatActivity {
                     .setMessage("Set url, id and passord !")
                     .setView(dialogView)
                     .setPositiveButton("Add", (dialog, which) -> {
+                        if (UrlText.getText().toString().equals("") || PasswordText.getText().toString().equals("") || loginText.getText().toString().equals("")) {
+                            Toast.makeText(this, "Aucun des trois champs ne peut être vide", Toast.LENGTH_SHORT).show();
+                        } else {
                         realm.executeTransactionAsync(realm -> {
                             try {
+
+
                                 Compte compte = new Compte();
                                 compte.setKey(password);
                                 compte.setLogin(loginText.getText().toString());
@@ -70,10 +75,12 @@ public class ListeComptesActivity extends AppCompatActivity {
                                 compte.setPassword(PasswordText.getText().toString());
                                 compte.setOwner(SyncUser.current().getIdentity());
                                 realm.insert(compte);
+
                             } catch (Exception e) {
                                 setError("Un compte avec ce login existe déjà !");
                             }
                         });
+                        }
                     })
                     .setNegativeButton("Cancel", null)
                     .create()

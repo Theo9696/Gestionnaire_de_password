@@ -68,23 +68,7 @@ public class RecyclerCompte extends RealmRecyclerViewAdapter<Compte, RecyclerCom
             super(compteView);
             contentView = compteView.findViewById(R.id.url);
             contentView.setOnClickListener(this);
-            int i = (int)Math.floor((Math.random()*4));
-            switch(i) {
-                case 0:
-                    contentView.setBackgroundColor(ContextCompat.getColor(compteView.getContext(),R.color.colorCompte2));
-                    break;
-                case 1:
-                    contentView.setBackgroundColor(ContextCompat.getColor(compteView.getContext(),R.color.colorCompte3));
-                    break;
-                case 2:
-                    contentView.setBackgroundColor(ContextCompat.getColor(compteView.getContext(),R.color.colorCompte4));
-                    break;
-                case 3:
-                    contentView.setBackgroundColor(ContextCompat.getColor(compteView.getContext(),R.color.colorCompte1));
-                    break;
-                default:
-                    contentView.setBackgroundColor(ContextCompat.getColor(compteView.getContext(),R.color.colorCompte2));
-            }
+
 
 
         }
@@ -108,6 +92,23 @@ public class RecyclerCompte extends RealmRecyclerViewAdapter<Compte, RecyclerCom
             mCompte.setKey(key);
             String info_compte = "URL : " + compte.getURL()+"\nIdentifiant : " + compte.getCompteLogin() + " \nMot de passe : " + compte.getUnencryptedPassword();
             this.contentView.setText(info_compte);
+            switch(mCompte.getColor()%4) {
+                case 0:
+                    contentView.setBackgroundColor(ContextCompat.getColor(contentView.getContext(),R.color.colorCompte2));
+                    break;
+                case 1:
+                    contentView.setBackgroundColor(ContextCompat.getColor(contentView.getContext(),R.color.colorCompte3));
+                    break;
+                case 2:
+                    contentView.setBackgroundColor(ContextCompat.getColor(contentView.getContext(),R.color.colorCompte4));
+                    break;
+                case 3:
+                    contentView.setBackgroundColor(ContextCompat.getColor(contentView.getContext(),R.color.colorCompte1));
+                    break;
+                default:
+                    contentView.setBackgroundColor(ContextCompat.getColor(contentView.getContext(),R.color.colorCompte2));
+            }
+
         }
 
         @Override

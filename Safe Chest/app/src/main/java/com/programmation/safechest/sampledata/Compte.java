@@ -30,6 +30,9 @@ public class Compte extends RealmObject{
     @Required
     private String password;
 
+
+    private int color;
+
     @Required
     private String URL;
 
@@ -63,6 +66,12 @@ public class Compte extends RealmObject{
         this.URL = "";
         this.timestamp = new Date();
         this.owner="";
+        int i = (int) Math.floor(Math.random()*4);
+        this.color = i;
+    }
+
+    public int getColor() {
+        return color;
     }
 
     public String getOwner() {

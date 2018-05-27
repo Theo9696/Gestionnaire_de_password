@@ -7,9 +7,13 @@
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:paddingBottom="2dp"
+        android:paddingTop="2dp"
         android:layout_gravity="center"
         android:textAlignment="center"
         android:text="Cette action est définitive !"
+        android:maxLines="3"
         />
 
 </LinearLayout>
