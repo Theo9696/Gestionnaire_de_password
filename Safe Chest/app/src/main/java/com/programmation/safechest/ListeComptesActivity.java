@@ -142,10 +142,12 @@ public class ListeComptesActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        SyncUser syncUser = SyncUser.current();
         switch(item.getItemId()) {
+
             case R.id.action_logout:
 
-                SyncUser syncUser = SyncUser.current();
+
                 if (syncUser != null) {
                     syncUser.logOut();
                     Intent intent = new Intent(this, EcranAccueil.class);

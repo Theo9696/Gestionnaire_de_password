@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import io.realm.ObjectServerError;
@@ -124,14 +123,22 @@ public class EcranInscription extends AppCompatActivity {
         return (str.matches("(.*)\\d(.*)") && str.matches("(.*)\\W(.*)"));
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
             case R.id.home:
-                Intent intent = NavUtils.getParentActivityIntent(this);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                NavUtils.navigateUpTo(this, intent);
+                try {
+                    Intent intent = NavUtils.getParentActivityIntent(this);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    NavUtils.navigateUpTo(this, intent);
+                }catch (NullPointerException e){
+                    Toast.makeText(this, e.getMessage()+"e", Toast.LENGTH_SHORT).show();
+                }catch (Exception e ) {
+            Toast.makeText(this, e.getMessage() + "d", Toast.LENGTH_SHORT).show();
+                }
+
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -140,6 +147,7 @@ public class EcranInscription extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
+
         return true;
     }
 
