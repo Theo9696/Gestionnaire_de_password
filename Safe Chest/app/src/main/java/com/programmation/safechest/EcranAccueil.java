@@ -1,5 +1,6 @@
 package com.programmation.safechest;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
@@ -58,10 +59,13 @@ public class EcranAccueil extends AppCompatActivity {
             public void onClick(View v) {
                 // Le premier paramètre est le nom de l'activité actuelle
                 // Le second est le nom de l'activité de destination
+
+
                 Intent secondeActivite = new Intent(EcranAccueil.this, Credit.class);
 
                 // Puis on lance l'intent !
                 startActivity(secondeActivite);
+
             }
 
         });

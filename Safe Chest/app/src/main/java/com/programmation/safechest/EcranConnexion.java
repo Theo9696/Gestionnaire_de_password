@@ -1,6 +1,7 @@
 package com.programmation.safechest;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -112,10 +113,13 @@ public class EcranConnexion extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.home:
+
+
                 Intent intent = NavUtils.getParentActivityIntent(this);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 NavUtils.navigateUpTo(this, intent);
                 return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
