@@ -19,7 +19,7 @@
     <string name="login">identifiant pour ce compte</string>
     <string name="mdp">mot de passe pour ce compte</string>
     <string name="contentDescr">logo de l\'application</string>
-    <string name="contentDescr2">logo de la creation  d'un compte</string>
+    <string name="contentDescr2">logo de la creation d'un compte</string>
     <string name="contentDescr3">logo de la connexion à un compte</string>
 
 </resources>

@@ -39,7 +39,7 @@ public class EcranConnexion extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
+        getSupportActionBar().setLogo(R.drawable.logo_petit);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
 

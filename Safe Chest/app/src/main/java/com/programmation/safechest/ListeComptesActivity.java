@@ -42,7 +42,7 @@ public class ListeComptesActivity extends AppCompatActivity {
         password = getIntent().getStringExtra(PASSWORD);
 
         setSupportActionBar(findViewById(R.id.toolbar));
-
+        getSupportActionBar().setLogo(R.drawable.logo_petit);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         findViewById(R.id.fab).setOnClickListener(view -> {
